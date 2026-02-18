@@ -3,460 +3,678 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bubblebee | Luxury B&B & Bubble Rooms in Abruzzo</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    
+    <meta name="description" content="BubbleBee - Luxury B&amp;B con 4 camere eleganti e 2 Bubble Room esclusive a Sant’Eusanio del Sangro (Abruzzo). Esperienza di alto livello immersa nella natura.">
+    <title>BubbleBee | Luxury B&amp;B &amp; Bubble Rooms • Sant’Eusanio del Sangro</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
     <style>
-        /* --- VARIABILI E RESET --- */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;family=Inter:wght@300;400;500;600&amp;display=swap');
+        
         :root {
-            --primary-dark: #1a1c20;
-            --secondary-dark: #2a2d34;
             --gold: #d4af37;
-            --gold-hover: #b5952f;
-            --text-light: #f4f4f4;
-            --text-muted: #aaaaaa;
-            --white: #ffffff;
+        }
+        
+        .tail-container {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .heading-font {
+            font-family: 'Playfair Display', sans-serif;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        .hero-bg {
+            background-image: linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)), url('https://picsum.photos/id/1015/2000/1200');
+            background-size: cover;
+            background-position: center;
         }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--primary-dark);
-            color: var(--text-light);
-            line-height: 1.6;
-            overflow-x: hidden;
+        .bubble-hero {
+            background-image: linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)), url('https://picsum.photos/id/870/2000/1200');
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 400;
+        .nav-link {
+            position: relative;
+            transition: all 0.3s;
         }
-
-        /* --- NAVIGAZIONE --- */
-        header {
-            position: fixed;
+        
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #d4af37;
+            transition: width 0.3s;
+        }
+        
+        .nav-link:hover:after {
             width: 100%;
-            top: 0;
-            background-color: rgba(26, 28, 32, 0.95);
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-            transition: 0.3s;
         }
 
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 28px;
-            color: var(--gold);
-            text-decoration: none;
-            letter-spacing: 2px;
+        .room-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .room-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
         }
 
-        nav ul {
-            list-style: none;
-            display: flex;
-            gap: 30px;
+        .modal {
+            animation: modalPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        
+        @keyframes modalPop {
+            0% { transform: scale(0.7); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
-        nav a {
-            color: var(--text-light);
-            text-decoration: none;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s;
-            cursor: pointer;
+        .gallery-img {
+            transition: all 0.4s;
         }
-
-        nav a:hover, nav a.active {
-            color: var(--gold);
-        }
-
-        .book-btn {
-            background-color: var(--gold);
-            color: var(--primary-dark);
-            padding: 10px 25px;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-weight: 600;
-            font-size: 14px;
-            border-radius: 3px;
-            transition: background 0.3s;
-        }
-
-        .book-btn:hover {
-            background-color: var(--gold-hover);
-        }
-
-        /* --- GESTIONE PAGINE (SPA) --- */
-        .page-section {
-            display: none;
-            animation: fadeIn 0.8s ease-in-out;
-            padding-top: 80px; /* Spazio per l'header fisso */
-        }
-
-        .page-section.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* --- HOME PAGE HERO --- */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1542314831-c6a420325142?auto=format&fit=crop&w=1920&q=80') center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            margin-top: -80px; /* Compensa il padding della section */
-        }
-
-        .hero h1 {
-            font-size: 60px;
-            color: var(--white);
-            margin-bottom: 20px;
-            letter-spacing: 3px;
-        }
-
-        .hero p {
-            font-size: 20px;
-            color: var(--text-light);
-            max-width: 600px;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
-
-        /* --- SEZIONI COMUNI --- */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 80px 20px;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 40px;
-            color: var(--gold);
-            margin-bottom: 20px;
-        }
-
-        .section-subtitle {
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 60px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* --- GRIGLIE --- */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-        }
-
-        .grid-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        /* --- CARDS ROOMS & BUBBLES --- */
-        .card {
-            background-color: var(--secondary-dark);
-            border-radius: 5px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .card:hover {
-            transform: translateY(-10px);
-            border-color: var(--gold);
-        }
-
-        .card img {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .card-content {
-            padding: 30px;
-        }
-
-        .card h3 {
-            font-size: 24px;
-            color: var(--gold);
-            margin-bottom: 15px;
-        }
-
-        .card p {
-            color: var(--text-muted);
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
-        .card-features {
-            display: flex;
-            gap: 15px;
-            font-size: 12px;
-            color: var(--white);
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-
-        /* --- CONTACT & FOOTER --- */
-        .contact-info {
-            background-color: var(--secondary-dark);
-            padding: 40px;
-            border-radius: 5px;
-            border-left: 3px solid var(--gold);
-        }
-
-        .contact-info h3 { margin-bottom: 20px; color: var(--gold); }
-        .contact-info p { margin-bottom: 10px; }
-
-        footer {
-            background-color: #111;
-            text-align: center;
-            padding: 30px 20px;
-            border-top: 1px solid rgba(212, 175, 55, 0.2);
-            font-size: 14px;
-            color: var(--text-muted);
-        }
-
-        /* --- RESPONSIVE DESIGN --- */
-        @media (max-width: 992px) {
-            .hero h1 { font-size: 45px; }
-            .grid-2 { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                padding: 15px;
-                gap: 15px;
-            }
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 15px;
-            }
-            .hero h1 { font-size: 35px; }
-            .hero p { font-size: 16px; }
+        
+        .gallery-img:hover {
+            transform: scale(1.08);
         }
     </style>
 </head>
-<body>
+<body class="tail-container text-gray-800 overflow-x-hidden">
 
-    <header>
-        <a href="#" class="logo" onclick="showPage('home')">BUBBLEBEE</a>
-        <nav>
-            <ul>
-                <li><a onclick="showPage('home')" class="active" id="nav-home">Home</a></li>
-                <li><a onclick="showPage('camere')" id="nav-camere">Le Camere</a></li>
-                <li><a onclick="showPage('bubble')" id="nav-bubble">Le Bubble Room</a></li>
-                <li><a onclick="showPage('contatti')" id="nav-contatti">Contatti</a></li>
-            </ul>
-        </nav>
-        <a href="#prenota" class="book-btn">Prenota Ora</a>
-    </header>
-
-    <main id="home" class="page-section active">
-        <div class="hero">
-            <h1>Il lusso di perdersi nella natura</h1>
-            <p>Un rifugio esclusivo a Sant’Eusanio del Sangro. Scopri le nostre 4 Suite Luxury e le 2 esclusive Bubble Room per notti indimenticabili sotto le stelle.</p>
-            <a href="#" class="book-btn" onclick="showPage('bubble')">Scopri le Bubble Room</a>
-        </div>
-        
-        <div class="container">
-            <div class="grid-2">
+    <!-- NAVBAR -->
+    <nav class="bg-white border-b sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-amber-800 rounded-full flex items-center justify-center text-white text-2xl">🐝</div>
                 <div>
-                    <h2 class="section-title" style="text-align: left;">Benvenuti al Bubblebee</h2>
-                    <p style="color: var(--text-muted); margin-bottom: 20px;">
-                        Situato nel cuore verde dell'Abruzzo, in Via Castellata 6 a Sant’Eusanio del Sangro, Bubblebee è molto più di un B&B. È un'esperienza sensoriale pensata per chi cerca il massimo del comfort senza rinunciare al contatto profondo con la natura.
-                    </p>
-                    <p style="color: var(--text-muted);">
-                        La nostra struttura offre 4 camere matrimoniali dal design raffinato e moderno, dotate di ogni comfort, e 2 Bubble Room esclusive, immerse nel nostro parco privato, per farti addormentare ammirando la via lattea e svegliarti con i suoni del bosco.
-                    </p>
+                    <span class="heading-font text-3xl tracking-tight text-amber-900">BubbleBee</span>
+                </div>
+            </div>
+            
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
+                <a href="#home" onclick="navigateTo('home')" class="nav-link text-gray-700 hover:text-amber-800">Home</a>
+                <a href="#stanze" onclick="navigateTo('stanze')" class="nav-link text-gray-700 hover:text-amber-800">Le Stanze</a>
+                <a href="#esperienze" onclick="navigateTo('esperienze')" class="nav-link text-gray-700 hover:text-amber-800">Esperienze</a>
+                <a href="#territorio" onclick="navigateTo('territorio')" class="nav-link text-gray-700 hover:text-amber-800">Il Territorio</a>
+                <a href="#galleria" onclick="navigateTo('galleria')" class="nav-link text-gray-700 hover:text-amber-800">Galleria</a>
+                <a href="#contatti" onclick="navigateTo('contatti')" class="nav-link text-gray-700 hover:text-amber-800">Contatti</a>
+            </div>
+
+            <a href="#prenota" onclick="navigateTo('prenota')" 
+               class="hidden md:block px-8 py-3 bg-amber-800 hover:bg-amber-900 text-white rounded-full text-sm font-semibold tracking-wider transition">
+                PRENOTA ORA
+            </a>
+
+            <!-- Mobile Hamburger -->
+            <button id="mobile-menu-btn"
+                    class="md:hidden text-3xl text-amber-800">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-6 py-8 flex flex-col gap-6 text-lg">
+                <a href="#home" onclick="navigateTo('home');closeMobile()" class="font-medium">Home</a>
+                <a href="#stanze" onclick="navigateTo('stanze');closeMobile()" class="font-medium">Le Stanze</a>
+                <a href="#esperienze" onclick="navigateTo('esperienze');closeMobile()" class="font-medium">Esperienze</a>
+                <a href="#territorio" onclick="navigateTo('territorio');closeMobile()" class="font-medium">Il Territorio</a>
+                <a href="#galleria" onclick="navigateTo('galleria');closeMobile()" class="font-medium">Galleria</a>
+                <a href="#contatti" onclick="navigateTo('contatti');closeMobile()" class="font-medium">Contatti</a>
+                <a href="#prenota" onclick="navigateTo('prenota');closeMobile()" 
+                   class="mt-4 block text-center py-4 bg-amber-800 text-white rounded-2xl font-semibold">
+                    PRENOTA ORA
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="home" class="hero-bg h-screen flex items-center relative">
+        <div class="max-w-5xl mx-auto px-6 text-white text-center">
+            <div class="max-w-2xl mx-auto">
+                <p class="uppercase tracking-[4px] text-amber-300 text-sm font-medium mb-4">Sant’Eusanio del Sangro • Abruzzo</p>
+                <h1 class="heading-font text-7xl md:text-8xl leading-none font-light mb-6">
+                    Lusso che<br>accarezza l’anima
+                </h1>
+                <p class="text-xl md:text-2xl max-w-md mx-auto mb-10 text-amber-100">
+                    4 camere luxury B&amp;B + 2 Bubble Room esclusive<br>
+                    immersi nella natura incontaminata dell’Abruzzo
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#stanze" onclick="navigateTo('stanze')"
+                       class="px-10 py-5 bg-white text-amber-900 hover:bg-amber-100 rounded-2xl font-semibold text-lg inline-flex items-center justify-center gap-3 transition">
+                        Scopri le stanze <span class="text-2xl">→</span>
+                    </a>
+                    <a href="#prenota" onclick="navigateTo('prenota')"
+                       class="px-10 py-5 border-2 border-white hover:bg-white/10 rounded-2xl font-semibold text-lg transition">
+                        Prenota la tua esperienza
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/70 text-xs tracking-widest">
+            <div class="w-px h-12 bg-gradient-to-b from-transparent via-white/40 to-transparent"></div>
+            SCORRI
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="absolute bottom-8 right-8 hidden lg:flex items-center gap-3 text-xs uppercase">
+            <div class="h-px w-12 bg-white/30"></div>
+            Via Castellata 6
+        </div>
+    </section>
+
+    <!-- INTRO -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <div class="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-6 py-2 rounded-full text-sm mb-6">
+                <i class="fas fa-sparkles"></i>
+                <span>Esperienza 5 stelle in un borgo autentico</span>
+            </div>
+            <h2 class="heading-font text-6xl leading-tight text-gray-900 mb-8">
+                Benvenuti a BubbleBee
+            </h2>
+            <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+                Un rifugio esclusivo dove design contemporaneo incontra la tradizione abruzzese. 
+                Quattro camere luxury all’interno di una villa restaurata e due Bubble Room trasparenti 
+                per dormire sotto le stelle più luminose d’Italia.
+            </p>
+            <div class="mt-16 grid grid-cols-3 gap-8 text-center">
+                <div>
+                    <div class="text-5xl font-light text-amber-800 mb-2">4</div>
+                    <div class="uppercase text-xs tracking-widest">Camere Luxury</div>
                 </div>
                 <div>
-                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=800&q=80" alt="Esterno della struttura" style="width: 100%; border-radius: 5px; box-shadow: 0 20px 40px rgba(0,0,0,0.5);">
+                    <div class="text-5xl font-light text-amber-800 mb-2">2</div>
+                    <div class="uppercase text-xs tracking-widest">Bubble Room</div>
+                </div>
+                <div>
+                    <div class="text-5xl font-light text-amber-800 mb-2">∞</div>
+                    <div class="uppercase text-xs tracking-widest">Momenti indimenticabili</div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <main id="camere" class="page-section">
-        <div class="container">
-            <h2 class="section-title">Le Camere Luxury</h2>
-            <p class="section-subtitle">Quattro suite esclusive, progettate nei minimi dettagli per offrirti un riposo regale. Materiali di pregio, lenzuola in lino e viste mozzafiato sulla vallata.</p>
-            
-            <div class="grid-cards">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=800&q=80" alt="Suite Prestige">
-                    <div class="card-content">
-                        <h3>Suite Prestige</h3>
-                        <div class="card-features">
-                            <span>✦ 35 mq</span>
-                            <span>✦ Letto King Size</span>
-                            <span>✦ Vista Valle</span>
+    <!-- STANZE -->
+    <section id="stanze" class="bg-zinc-50 py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <span class="uppercase text-amber-700 text-sm tracking-widest">Esclusività e comfort</span>
+                <h2 class="heading-font text-6xl text-gray-900 mt-3">Le nostre stanze</h2>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Luxury 1 -->
+                <div onclick="showRoomModal(0)" class="room-card bg-white rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="h-80 bg-cover bg-center" style="background-image: url('https://picsum.photos/id/201/800/600')"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="heading-font text-3xl">Suite Miele d’Oro</h3>
+                                <p class="text-amber-700">Camera Luxury • 38 m²</p>
+                            </div>
+                            <span class="text-xs bg-amber-100 text-amber-800 px-4 py-2 rounded-2xl">B&amp;B</span>
                         </div>
-                        <p>Eleganza pura con vasca freestanding in camera, bagno in marmo e balcone privato. Ideale per fughe romantiche e soggiorni di puro relax.</p>
+                        <p class="mt-6 text-gray-600 line-clamp-3">
+                            Letto king size, bagno con vasca idromassaggio e doccia rain, terrazza privata con vista sui colli abruzzesi.
+                        </p>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?auto=format&fit=crop&w=800&q=80" alt="Suite Deluxe">
-                    <div class="card-content">
-                        <h3>Suite Deluxe</h3>
-                        <div class="card-features">
-                            <span>✦ 30 mq</span>
-                            <span>✦ Letto King Size</span>
-                            <span>✦ Doccia Sensoriale</span>
+
+                <!-- Luxury 2 -->
+                <div onclick="showRoomModal(1)" class="room-card bg-white rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="h-80 bg-cover bg-center" style="background-image: url('https://picsum.photos/id/251/800/600')"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="heading-font text-3xl">Suite Lavanda</h3>
+                                <p class="text-amber-700">Camera Luxury • 42 m²</p>
+                            </div>
+                            <span class="text-xs bg-amber-100 text-amber-800 px-4 py-2 rounded-2xl">B&amp;B</span>
                         </div>
-                        <p>Arredi di design contemporaneo che incontrano elementi in legno naturale. Un nido di pace dotato di smart TV, minibar premium e area relax.</p>
+                        <p class="mt-6 text-gray-600 line-clamp-3">
+                            Eleganza minimal con tocchi provenzali, camino privato, grande finestra panoramica sul tramonto.
+                        </p>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1611892440504-42a792e24d32?auto=format&fit=crop&w=800&q=80" alt="Camera Superior">
-                    <div class="card-content">
-                        <h3>Suite Superior Oro</h3>
-                        <div class="card-features">
-                            <span>✦ 28 mq</span>
-                            <span>✦ Accesso Giardino</span>
-                            <span>✦ Patio Privato</span>
+
+                <!-- Luxury 3 -->
+                <div onclick="showRoomModal(2)" class="room-card bg-white rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="h-80 bg-cover bg-center" style="background-image: url('https://picsum.photos/id/316/800/600')"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="heading-font text-3xl">Suite Ulivo</h3>
+                                <p class="text-amber-700">Camera Luxury • 35 m²</p>
+                            </div>
+                            <span class="text-xs bg-amber-100 text-amber-800 px-4 py-2 rounded-2xl">B&amp;B</span>
                         </div>
-                        <p>Camera luminosa con accesso diretto al giardino privato della struttura. Bagno elegante con cromoterapia e set di cortesia di lusso.</p>
+                        <p class="mt-6 text-gray-600 line-clamp-3">
+                            Design contemporaneo, letto a baldacchino, bagno in marmo e accesso diretto al giardino privato.
+                        </p>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=800&q=80" alt="Camera Classic">
-                    <div class="card-content">
-                        <h3>Suite Superior Natura</h3>
-                        <div class="card-features">
-                            <span>✦ 28 mq</span>
-                            <span>✦ Letto Queen Size</span>
-                            <span>✦ Vista Giardino</span>
+
+                <!-- Luxury 4 -->
+                <div onclick="showRoomModal(3)" class="room-card bg-white rounded-3xl overflow-hidden cursor-pointer">
+                    <div class="h-80 bg-cover bg-center" style="background-image: url('https://picsum.photos/id/342/800/600')"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="heading-font text-3xl">Suite Tramonto</h3>
+                                <p class="text-amber-700">Camera Luxury • 40 m²</p>
+                            </div>
+                            <span class="text-xs bg-amber-100 text-amber-800 px-4 py-2 rounded-2xl">B&amp;B</span>
                         </div>
-                        <p>Atmosfera calda e accogliente, perfetta per rigenerarsi. Soffitto con travi a vista, pavimenti in parquet pregiato e macchina per il caffè espresso.</p>
+                        <p class="mt-6 text-gray-600 line-clamp-3">
+                            La suite più romantica con vista mozzafiato sulle colline al tramonto e vasca esterna.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bubble 1 -->
+                <div onclick="showRoomModal(4)" class="room-card bg-white rounded-3xl overflow-hidden cursor-pointer col-span-1 md:col-span-2 lg:col-span-1">
+                    <div class="h-80 bg-cover bg-center" style="background-image: url('https://picsum.photos/id/870/800/600')"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="heading-font text-3xl">Bubble delle Stelle</h3>
+                                <p class="text-amber-700">Bubble Room • 30 m²</p>
+                            </div>
+                            <span class="text-xs bg-sky-100 text-sky-800 px-4 py-2 rounded-2xl">Glamping</span>
+                        </div>
+                        <p class="mt-6 text-gray-600 line-clamp-3">
+                            Cupola geodetica trasparente per ammirare il cielo stellato direttamente dal letto king size. 
+                            Bagno privato esterno riscaldato e deck privato.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bubble 2 -->
+                <div onclick="showRoomModal(5)" class="room-card bg-white rounded-3xl overflow-hidden cursor-pointer col-span-1 md:col-span-2 lg:col-span-1">
+                    <div class="h-80 bg-cover bg-center" style="background-image: url('https://picsum.photos/id/1016/800/600')"></div>
+                    <div class="p-8">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h3 class="heading-font text-3xl">Bubble del Sangro</h3>
+                                <p class="text-amber-700">Bubble Room • 30 m²</p>
+                            </div>
+                            <span class="text-xs bg-sky-100 text-sky-800 px-4 py-2 rounded-2xl">Glamping</span>
+                        </div>
+                        <p class="mt-6 text-gray-600 line-clamp-3">
+                            Vista sulla valle del fiume Sangro, riscaldamento a pavimento, vasca idromassaggio esterna e privacy totale.
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <main id="bubble" class="page-section">
-        <div class="container">
-            <h2 class="section-title">Le Bubble Room</h2>
-            <p class="section-subtitle">Dormire sotto le stelle, circondati dai suoni del bosco, con tutti i comfort di un hotel a 5 stelle. Le nostre 2 Bubble Room sono sfere trasparenti, climatizzate e totalmente isolate per la massima privacy.</p>
-            
-            <div class="grid-2">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?auto=format&fit=crop&w=800&q=80" alt="Bubble Cassiopea">
-                    <div class="card-content">
-                        <h3>Bubble Cassiopea</h3>
-                        <div class="card-features">
-                            <span>✦ Letto Rotondo</span>
-                            <span>✦ Telescopio</span>
-                            <span>✦ Bagno Privato</span>
+    <!-- ESPERIENZE -->
+    <section id="esperienze" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div>
+                    <span class="uppercase tracking-widest text-sm text-amber-700">Non solo pernottamento</span>
+                    <h2 class="heading-font text-6xl mt-4 leading-none">Esperienze che restano nel cuore</h2>
+                    <div class="space-y-10 mt-12">
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 flex-shrink-0 bg-amber-100 text-amber-800 rounded-2xl flex items-center justify-center text-2xl">🍷</div>
+                            <div>
+                                <h4 class="font-semibold text-xl">Degustazione vini abruzzesi</h4>
+                                <p class="text-gray-600">Montepulciano e Trebbiano direttamente dalle cantine locali con sommelier privato.</p>
+                            </div>
                         </div>
-                        <p>Immersa nel punto più panoramico della tenuta. Include un telescopio per l'osservazione degli astri, letto king size circolare e un bagno privato esterno a pochi passi, riscaldato e dotato di ogni comfort.</p>
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 flex-shrink-0 bg-amber-100 text-amber-800 rounded-2xl flex items-center justify-center text-2xl">🌿</div>
+                            <div>
+                                <h4 class="font-semibold text-xl">Passeggiate guidate nel Parco della Maiella</h4>
+                                <p class="text-gray-600">Escursioni private con guida naturalistica ai piedi del monte Pallano.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="w-12 h-12 flex-shrink-0 bg-amber-100 text-amber-800 rounded-2xl flex items-center justify-center text-2xl">🍝</div>
+                            <div>
+                                <h4 class="font-semibold text-xl">Cooking class abruzzese</h4>
+                                <p class="text-gray-600">Impara a preparare arrosticini, chitarra e dolci tradizionali con lo chef locale.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=800&q=80" alt="Bubble Orione">
-                    <div class="card-content">
-                        <h3>Bubble Orione</h3>
-                        <div class="card-features">
-                            <span>✦ Jacuzzi Privata</span>
-                            <span>✦ Area Deck</span>
-                            <span>✦ Bagno Privato</span>
-                        </div>
-                        <p>L'apoteosi del glamping di lusso. Oltre alla cupola trasparente per dormire immersi nella natura, offre un deck esterno privato con vasca idromassaggio riscaldata a legna, da usare anche in pieno inverno.</p>
+                <div class="relative">
+                    <img src="https://picsum.photos/id/133/900/1200" alt="Esperienze" 
+                         class="rounded-3xl shadow-2xl">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-8 rounded-3xl shadow-xl max-w-xs">
+                        <div class="text-amber-800 text-5xl font-light">“</div>
+                        <p class="italic text-lg mt-4">
+                            “Il posto più romantico in cui abbiamo mai dormito. Le stelle sembravano a portata di mano.”
+                        </p>
+                        <div class="mt-6 text-sm">— Luca &amp; Sofia, Milano</div>
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </section>
 
-    <main id="contatti" class="page-section">
-        <div class="container">
-            <h2 class="section-title">Contatti & Posizione</h2>
-            <p class="section-subtitle">Siamo pronti ad accoglierti. Contattaci per richieste speciali, per organizzare sorprese romantiche o per qualsiasi informazione sulla tua prenotazione.</p>
+    <!-- TERRITORIO -->
+    <section id="territorio" class="bg-zinc-900 text-white py-24">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-20">
+                <div>
+                    <h2 class="heading-font text-6xl">Un borgo vivo, una terra antica</h2>
+                    <p class="mt-8 text-lg text-gray-300">
+                        Sant’Eusanio del Sangro è un piccolo gioiello ai piedi del Monte Pallano, nella verde Valle del Sangro. 
+                        Qui il tempo sembra rallentare: casette di pietra, chiese antiche, tratturi millenari e un panorama che spazia dalle montagne alla costa adriatica (solo 35 minuti).
+                    </p>
+                    <div class="mt-12 space-y-8">
+                        <div class="flex gap-4">
+                            <i class="fas fa-landmark text-3xl text-amber-400"></i>
+                            <div>
+                                <div class="font-medium">Palazzo De Titta &amp; Casa Museo Cesare De Titta</div>
+                                <div class="text-sm text-gray-400">A 5 minuti a piedi</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <i class="fas fa-mountain text-3xl text-amber-400"></i>
+                            <div>
+                                <div class="font-medium">Parco Nazionale della Maiella</div>
+                                <div class="text-sm text-gray-400">20 minuti in auto</div>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <i class="fas fa-umbrella-beach text-3xl text-amber-400"></i>
+                            <div>
+                                <div class="font-medium">Costa Adriatica (Pescara)</div>
+                                <div class="text-sm text-gray-400">35 minuti</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <img src="https://picsum.photos/id/1018/800/900" alt="Territorio" 
+                         class="rounded-3xl">
+                    <div class="mt-8 text-xs uppercase tracking-widest text-amber-400 text-center">
+                        Via Castellata 6, 66030 Sant’Eusanio del Sangro (CH)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GALLERIA -->
+    <section id="galleria" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="heading-font text-6xl">Momenti di pura bellezza</h2>
+            </div>
             
-            <div class="grid-2">
-                <div class="contact-info">
-                    <h3>Indirizzo</h3>
-                    <p><strong>Bubblebee Luxury B&B</strong></p>
-                    <p>Via Castellata, 6</p>
-                    <p>66030 Sant’Eusanio del Sangro (CH)</p>
-                    <p>Abruzzo, Italia</p>
-                    
-                    <h3 style="margin-top: 30px;">Recapiti</h3>
-                    <p>Email: booking@bubblebee.it</p>
-                    <p>Telefono: +39 300 123 4567</p>
-                    <p>WhatsApp: Disponibile 24/7</p>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <img src="https://picsum.photos/id/870/600/800" alt="" class="gallery-img rounded-3xl w-full h-full object-cover aspect-square">
+                <img src="https://picsum.photos/id/201/600/800" alt="" class="gallery-img rounded-3xl w-full h-full object-cover aspect-square">
+                <img src="https://picsum.photos/id/1016/600/800" alt="" class="gallery-img rounded-3xl w-full h-full object-cover aspect-square">
+                <img src="https://picsum.photos/id/316/600/800" alt="" class="gallery-img rounded-3xl w-full h-full object-cover aspect-square">
+                <img src="https://picsum.photos/id/342/600/800" alt="" class="gallery-img rounded-3xl w-full h-full object-cover aspect-square">
+                <img src="https://picsum.photos/id/133/600/800" alt="" class="gallery-img rounded-3xl w-full h-full object-cover aspect-square">
+                <img src="https://picsum.photos/id/251/600/800" alt="" class="gallery-img rounded-3xl w-full h-full object-cover aspect-square">
+                <img src="https://picsum.photos/id/1015/600/800" alt="" class="gallery-img rounded-3xl w-full h-full object-cover aspect-square">
+            </div>
+        </div>
+    </section>
+
+    <!-- PRENOTA / CONTATTI -->
+    <section id="prenota" class="bg-amber-900 text-white py-24">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="heading-font text-6xl">Prenota la tua fuga di lusso</h2>
+                <p class="text-amber-200 mt-4">Risposte in meno di 2 ore • Cancellazione gratuita fino a 7 giorni</p>
+            </div>
+
+            <form id="booking-form" onsubmit="handleBooking(event)" class="grid md:grid-cols-2 gap-8">
+                <div>
+                    <label class="block text-sm uppercase tracking-widest mb-2">Nome e Cognome</label>
+                    <input type="text" required class="w-full bg-white/10 border border-white/30 rounded-2xl px-6 py-5 focus:outline-none focus:border-amber-300">
+                </div>
+                <div>
+                    <label class="block text-sm uppercase tracking-widest mb-2">Email</label>
+                    <input type="email" required class="w-full bg-white/10 border border-white/30 rounded-2xl px-6 py-5 focus:outline-none focus:border-amber-300">
+                </div>
+                <div>
+                    <label class="block text-sm uppercase tracking-widest mb-2">Check-in</label>
+                    <input type="date" required class="w-full bg-white/10 border border-white/30 rounded-2xl px-6 py-5 focus:outline-none focus:border-amber-300">
+                </div>
+                <div>
+                    <label class="block text-sm uppercase tracking-widest mb-2">Check-out</label>
+                    <input type="date" required class="w-full bg-white/10 border border-white/30 rounded-2xl px-6 py-5 focus:outline-none focus:border-amber-300">
+                </div>
+                <div class="md:col-span-2">
+                    <label class="block text-sm uppercase tracking-widest mb-2">Messaggio / Richieste speciali</label>
+                    <textarea rows="4" class="w-full bg-white/10 border border-white/30 rounded-3xl px-6 py-5 focus:outline-none focus:border-amber-300"></textarea>
+                </div>
+                <div class="md:col-span-2">
+                    <button type="submit"
+                            class="w-full py-7 bg-white text-amber-900 hover:bg-amber-100 rounded-3xl text-xl font-semibold tracking-wider">
+                        INVIA RICHIESTA DI PRENOTAZIONE
+                    </button>
+                </div>
+            </form>
+
+            <div class="mt-20 grid md:grid-cols-3 gap-8 text-center text-sm">
+                <div>
+                    <div class="text-amber-300">📍</div>
+                    <div class="mt-3">Via Castellata 6<br>66030 Sant’Eusanio del Sangro (CH)</div>
+                </div>
+                <div>
+                    <div class="text-amber-300">📞</div>
+                    <div class="mt-3">+39 347 123 4567</div>
+                </div>
+                <div>
+                    <div class="text-amber-300">✉️</div>
+                    <div class="mt-3">info@bubblebee.it</div>
+                </div>
+            </div>
+
+            <!-- MAP -->
+            <div class="mt-16 rounded-3xl overflow-hidden shadow-2xl">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2995.123456789!2d14.456789!3d42.123456!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1331a5b5b5b5b5b5%3A0x1234567890abcdef!2sVia%20Castellata%206%2C%2066030%20Sant%27Eusanio%20del%20Sangro%20CH!5e0!3m2!1sit!2sit!4v1739999999999"
+                    width="100%" height="420" style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-zinc-950 text-white/70 py-20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-amber-800 rounded-full flex items-center justify-center">🐝</div>
+                    <span class="heading-font text-3xl text-white">BubbleBee</span>
                 </div>
                 
-                <div>
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2950.485596489!2d14.321!3d42.169!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDLCsDEwJzA4LjQiTiAxNMKwMTknMTUuNiJF!5e0!3m2!1sit!2sit!4v1611234567890!5m2!1sit!2sit" 
-                        width="100%" 
-                        height="400" 
-                        style="border:0; border-radius: 5px; opacity: 0.8;" 
-                        allowfullscreen="" 
-                        loading="lazy">
-                    </iframe>
+                <div class="text-center md:text-left text-sm">
+                    © 2026 BubbleBee Luxury Retreat • Tutti i diritti riservati<br>
+                    P.IVA 01234567890 • Privacy • Cookie
+                </div>
+
+                <div class="flex gap-6 text-2xl">
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="hover:text-white transition"><i class="fab fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2026 Bubblebee Luxury B&B & Bubble Rooms. Tutti i diritti riservati.</p>
-        <p style="margin-top: 10px; font-size: 12px;">Via Castellata 6, Sant’Eusanio del Sangro (CH)</p>
     </footer>
 
+    <!-- ROOM MODAL -->
+    <div id="room-modal" class="hidden fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4">
+        <div class="modal bg-white max-w-4xl w-full rounded-3xl overflow-hidden max-h-[95vh] overflow-y-auto">
+            <div class="relative">
+                <button onclick="closeModal()" 
+                        class="absolute top-6 right-6 text-4xl text-white z-10">×</button>
+                
+                <div id="modal-image" class="h-96 bg-cover bg-center"></div>
+                
+                <div class="p-10">
+                    <div id="modal-content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        function showPage(pageId) {
-            // Nascondi tutte le sezioni
-            const sections = document.querySelectorAll('.page-section');
-            sections.forEach(section => {
-                section.classList.remove('active');
-            });
-
-            // Mostra la sezione richiesta
-            document.getElementById(pageId).classList.add('active');
-
-            // Aggiorna il menu di navigazione
-            const navLinks = document.querySelectorAll('nav a');
-            navLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-            document.getElementById('nav-' + pageId).classList.add('active');
-
-            // Torna all'inizio della pagina in modo fluido
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Tailwind script already loaded via CDN
+        
+        function navigateTo(section) {
+            document.getElementById(section).scrollIntoView({ behavior: 'smooth' });
         }
+        
+        // Mobile menu
+        const mobileBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        function closeMobile() {
+            mobileMenu.classList.add('hidden');
+        }
+        
+        // Room data
+        const rooms = [
+            {
+                name: "Suite Miele d’Oro",
+                type: "Camera Luxury B&amp;B",
+                size: "38 m²",
+                image: "https://picsum.photos/id/201/1200/800",
+                desc: "La suite più luminosa della villa. Letto king size con lenzuola di lino italiano, bagno in travertino con vasca freestanding e doccia emozionale. Terrazza privata con vista sui vigneti e uliveti. Ideale per coppie in cerca di romanticismo e relax assoluto.",
+                amenities: ["Letto King", "Bagno privato con vasca", "Terrazza privata", "Aria condizionata", "Wi-Fi ultra-veloce", "Minibar premium", "TV 55\" Smart", "Colazione in camera su richiesta"]
+            },
+            {
+                name: "Suite Lavanda",
+                type: "Camera Luxury B&amp;B",
+                size: "42 m²",
+                image: "https://picsum.photos/id/251/1200/800",
+                desc: "Eleganza provenzale in Abruzzo. Camino funzionante, grandi finestre a tutta altezza, letto king e un bagno che sembra una spa privata. Perfetta per chi ama i dettagli raffinati e la luce naturale.",
+                amenities: ["Camino privato", "Letto King", "Doccia rain + vasca", "Vista tramonto", "Aria condizionata", "Wi-Fi", "Minibar", "TV Smart"]
+            },
+            {
+                name: "Suite Ulivo",
+                type: "Camera Luxury B&amp;B",
+                size: "35 m²",
+                image: "https://picsum.photos/id/316/1200/800",
+                desc: "Design contemporaneo con elementi rustici. Accesso diretto al giardino mediterraneo, letto a baldacchino e bagno in marmo nero. L’ideale per chi desidera privacy e contatto diretto con la natura.",
+                amenities: ["Accesso giardino", "Letto King", "Bagno in marmo", "Aria condizionata", "Wi-Fi", "Minibar", "TV 50\""]
+            },
+            {
+                name: "Suite Tramonto",
+                type: "Camera Luxury B&amp;B",
+                size: "40 m²",
+                image: "https://picsum.photos/id/342/1200/800",
+                desc: "La suite più romantica. Vasca idromassaggio esterna sulla terrazza privata, letto king, arredi in legno antico e una vista che toglie il fiato al tramonto.",
+                amenities: ["Vasca esterna", "Terrazza panoramica", "Letto King", "Aria condizionata", "Wi-Fi", "Minibar premium", "TV Smart"]
+            },
+            {
+                name: "Bubble delle Stelle",
+                type: "Bubble Room Glamping",
+                size: "30 m²",
+                image: "https://picsum.photos/id/870/1200/800",
+                desc: "Dormire sotto un cielo stellato mozzafiato. Cupola trasparente di ultima generazione, letto king king, riscaldamento a pavimento, bagno privato esterno riscaldato e deck privato con vista sulla valle.",
+                amenities: ["Cupola trasparente", "Letto King", "Riscaldamento pavimento", "Bagno esterno privato", "Deck privato", "Wi-Fi", "Luci smart", "Stargazing experience"]
+            },
+            {
+                name: "Bubble del Sangro",
+                type: "Bubble Room Glamping",
+                size: "30 m²",
+                image: "https://picsum.photos/id/1016/1200/800",
+                desc: "Vista unica sulla Valle del Sangro. Struttura geodetica di design, comfort 5 stelle, vasca idromassaggio esterna, privacy assoluta e la sensazione di essere sospesi nella natura.",
+                amenities: ["Vasca idromassaggio esterna", "Letto King", "Vista fiume", "Riscaldamento", "Bagno privato", "Deck lounge", "Wi-Fi", "Stelle a portata di mano"]
+            }
+        ];
+        
+        function showRoomModal(index) {
+            const room = rooms[index];
+            const modal = document.getElementById('room-modal');
+            const imageDiv = document.getElementById('modal-image');
+            const contentDiv = document.getElementById('modal-content');
+            
+            imageDiv.style.backgroundImage = `url('${room.image}')`;
+            
+            let amenitiesHTML = '';
+            room.amenities.forEach(am => {
+                amenitiesHTML += `<div class="flex items-center gap-3"><i class="fas fa-check text-amber-600"></i><span>${am}</span></div>`;
+            });
+            
+            contentDiv.innerHTML = `
+                <div class="flex justify-between items-start">
+                    <div>
+                        <span class="inline-block px-5 py-1 bg-amber-100 text-amber-800 text-xs rounded-3xl">${room.type}</span>
+                        <h2 class="heading-font text-5xl mt-4">${room.name}</h2>
+                        <p class="text-amber-700">${room.size}</p>
+                    </div>
+                    <div onclick="closeModal()" class="cursor-pointer text-4xl leading-none text-gray-300 hover:text-gray-500">×</div>
+                </div>
+                
+                <p class="mt-8 text-gray-700 leading-relaxed text-lg">${room.desc}</p>
+                
+                <div class="mt-12">
+                    <h4 class="uppercase text-xs tracking-widest text-gray-500 mb-6">Cosa include</h4>
+                    <div class="grid grid-cols-2 gap-y-5 text-sm">
+                        ${amenitiesHTML}
+                    </div>
+                </div>
+                
+                <div class="mt-12 pt-8 border-t flex items-center justify-between text-sm">
+                    <div>
+                        <span class="text-amber-700">Colazione inclusa</span><br>
+                        <span class="text-gray-500">Wi-Fi • Aria condizionata • Pulizia giornaliera</span>
+                    </div>
+                    <button onclick="closeModal();navigateTo('prenota')" 
+                            class="px-10 py-4 bg-amber-800 hover:bg-black text-white rounded-2xl font-medium">
+                        Prenota questa stanza
+                    </button>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('room-modal');
+            modal.classList.add('hidden');
+            document.body.style.overflow = 'visible';
+        }
+        
+        // Booking form
+        function handleBooking(e) {
+            e.preventDefault();
+            alert("✅ Richiesta di prenotazione inviata con successo!\n\nTi contatteremo entro 2 ore per confermare la disponibilità.");
+            e.target.reset();
+        }
+        
+        // Keyboard escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === "Escape") {
+                const modal = document.getElementById('room-modal');
+                if (!modal.classList.contains('hidden')) closeModal();
+            }
+        });
+        
+        // Close mobile menu on resize
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                mobileMenu.classList.add('hidden');
+            }
+        });
+        
+        // Init
+        console.log('%cBubbleBee Luxury Website caricato con successo ✨', 'color:#d4af37; font-family:monospace');
     </script>
-
 </body>
 </html>
