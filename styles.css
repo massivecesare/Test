@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --gold: #d4af37;
+  --gold-dark: #b8962e;
+}
+
+body { font-family: 'Inter', sans-serif; }
+.heading-font, h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--gold);
+  transition: width 0.3s ease;
+}
+.nav-link:hover::after,
+.nav-link.active::after { width: 100%; }
+.active { color: #fcd34d !important; }
+
+/* ====================== GALLERIE COMUNI ====================== */
+.sant-eusanio-gallery-wrapper,
+.experience-gallery-wrapper,
+.romantic-gallery-wrapper,
+.suite-gallery-wrapper,
+.gallery-wrapper {
+  position: relative;
+}
+.sant-eusanio-gallery,
+.experience-gallery,
+.romantic-gallery,
+.event-gallery,
+.photo-gallery,
+.gallery {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem 0 2rem 0;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+}
+.sant-eusanio-gallery::-webkit-scrollbar,
+.experience-gallery::-webkit-scrollbar,
+.romantic-gallery::-webkit-scrollbar,
+.event-gallery::-webkit-scrollbar,
+.photo-gallery::-webkit-scrollbar,
+.gallery::-webkit-scrollbar { display: none; }
+
+.sant-eusanio-gallery img,
+.experience-gallery img,
+.romantic-gallery img,
+.event-gallery img,
+.photo-gallery img,
+.gallery img {
+  flex: 0 0 85%;
+  height: 280px;
+  object-fit: cover;
+  border-radius: 1rem;
+  scroll-snap-align: center;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+@media (min-width: 768px) {
+  .sant-eusanio-gallery img, .experience-gallery img, .romantic-gallery img,
+  .event-gallery img, .photo-gallery img, .gallery img {
+    flex: 0 0 45%; height: 340px;
+  }
+}
+@media (min-width: 1024px) {
+  .sant-eusanio-gallery img, .experience-gallery img, .romantic-gallery img,
+  .event-gallery img, .photo-gallery img, .gallery img {
+    flex: 0 0 33%; height: 380px;
+  }
+}
+
+/* Versioni grandi (sala eventi + romantic) */
+.event-gallery img,
+.romantic-gallery img {
+  height: 420px;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+}
+@media (min-width: 768px) {
+  .event-gallery img, .romantic-gallery img {
+    flex: 0 0 60%; height: 500px;
+  }
+}
+
+/* Frecce gallerie */
+.gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(30,30,30,0.5);
+  backdrop-filter: blur(10px);
+  color: var(--gold);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: all 0.3s ease;
+  z-index: 10;
+  border: 1px solid var(--gold);
+  font-size: 0.9rem;
+}
+.gallery-arrow:hover {
+  opacity: 1;
+  background: rgba(212,175,55,0.25);
+  transform: translateY(-50%) scale(1.15);
+}
+.gallery-arrow.left { left: 8px; }
+.gallery-arrow.right { right: 8px; }
+
+/* Altri elementi specifici */
+.product-card {
+  transition: all 0.3s ease;
+  background: rgba(30,30,30,0.7);
+  backdrop-filter: blur(8px);
+}
+.product-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(212,175,55,0.2);
+}
+.quantity-input {
+  width: 50px;
+  text-align: center;
+  background: #1f1f1f;
+  border: 1px solid var(--gold);
+  color: white;
+  border-radius: 0.375rem;
+}
+.feature-icon { font-size: 3rem; }
+@media (min-width: 1024px) { .feature-icon { font-size: 4rem; } }
+.suite-card:hover, .bubble-card:hover, .experience-card:hover {
+  transform: translateY(-12px);
+  box-shadow: 0 25px 50px -12px rgba(212,175,55,0.3);
+}
+
+/* Calendario */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+}
+.calendar-day {
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.calendar-day.available { background: #166534; color: white; }
+.calendar-day.booked { background: #991b1b; color: white; cursor: not-allowed; }
+.calendar-day.past { background: #374151; color: #9ca3af; cursor: not-allowed; }
+.calendar-day:hover.available { background: #22c55e; transform: scale(1.1); }

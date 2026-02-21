@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bubblebee Luxury B&B - Glamping di lusso con bolle trasparenti tra i campi di grano a Sant'Eusanio del Sangro. Vista Maiella.">
+    <title>Bubblebee Luxury B&B • Glamping di lusso in Abruzzo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="bg-stone-950 text-stone-200 font-sans">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-stone-950/95 backdrop-blur-md border-b border-amber-900">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 py-5 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo1.JPG" alt="Logo Bubblebee" class="h-11 lg:h-14 w-auto">
+                <div>
+                    <span class="heading-font text-3xl lg:text-4xl font-bold tracking-tighter">Bubblebee</span>
+                    <p class="text-xs lg:text-sm text-amber-400 -mt-1 tracking-[3px]">LUXURY B&amp;B</p>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-10 text-base font-medium">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="tenuta.html" class="nav-link">La Tenuta</a>
+                <a href="stanze.html" class="nav-link">Le Bolle</a>
+                <a href="esperienze.html" class="nav-link">Esperienze</a>
+                <a href="territorio.html" class="nav-link">Il Territorio</a>
+                <a href="bottega.html" class="nav-link">La Bottega</a>
+                <a href="sala-eventi.html" class="nav-link">Sala Eventi</a>
+                <a href="contatti.html" class="nav-link">Contatti</a>
+            </div>
+
+            <div class="relative hidden lg:block group">
+                <button class="flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-stone-950 font-semibold px-8 py-4 rounded-full transition-all text-sm">
+                    <i class="fas fa-calendar"></i> PRENOTA ORA
+                    <i class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"></i>
+                </button>
+                <div class="absolute right-0 mt-3 w-56 bg-stone-900 border border-amber-900/50 rounded-2xl shadow-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
+                    <a href="calendario-camere.html" class="block px-6 py-4 text-stone-200 hover:bg-amber-900/30 hover:text-amber-300 transition-colors flex items-center gap-3">
+                        <i class="fas fa-bed text-amber-400"></i> Suite
+                    </a>
+                    <a href="calendario-bolle.html" class="block px-6 py-4 text-stone-200 hover:bg-amber-900/30 hover:text-amber-300 transition-colors flex items-center gap-3">
+                        <i class="fas fa-spa text-amber-400"></i> Bolle
+                    </a>
+                </div>
+            </div>
+
+            <button id="mobile-btn" class="lg:hidden text-3xl text-amber-300"><i class="fas fa-bars"></i></button>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden bg-stone-950 border-t border-amber-900">
+            <div class="px-6 py-8 flex flex-col items-center gap-6 text-lg">
+                <a href="index.html">Home</a>
+                <a href="tenuta.html">La Tenuta</a>
+                <a href="stanze.html">Le Bolle</a>
+                <a href="esperienze.html">Esperienze</a>
+                <a href="territorio.html">Il Territorio</a>
+                <a href="bottega.html">La Bottega</a>
+                <a href="sala-eventi.html">Sala Eventi</a>
+                <a href="contatti.html">Contatti</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero-bg min-h-screen flex items-center relative">
+        <video class="hero-video" autoplay muted loop playsinline>
+            <source src="hero-video.mp4" type="video/mp4">
+        </video>
+        <div class="relative z-10 text-center max-w-5xl mx-auto px-6">
+            <h1 class="heading-font text-6xl md:text-8xl lg:text-9xl font-bold mb-6 tracking-tight">Bubblebee</h1>
+            <p class="text-2xl md:text-4xl text-amber-300 mb-10">Luxury Bubble Experience • Abruzzo</p>
+            <a href="contatti.html" class="inline-flex items-center gap-4 bg-amber-600 hover:bg-amber-500 text-white text-xl lg:text-2xl font-semibold px-12 py-6 rounded-full transition-colors shadow-lg shadow-amber-900/30">
+                <i class="far fa-calendar-alt"></i> Prenota la tua bolla
+            </a>
+        </div>
+    </section>
+
+    <!-- TEASER SECTION -->
+    <section class="py-20 lg:py-32 bg-stone-950">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+            <h2 class="heading-font text-5xl lg:text-7xl font-bold text-center mb-16">Scopri Bubblebee</h2>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+
+                <!-- Le Bolle -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="bolla-interno.jpg">
+                        <source src="bolle-vid.mp4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Le Bolle</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Dormi sotto un cielo di stelle in bolle trasparenti di lusso con jacuzzi privata e vista Maiella.</p>
+                        <a href="stanze.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Scopri le bolle <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Esperienze -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="yoga-tramonto.jpg">
+                        <source src="esperienze-vid.mp4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Esperienze</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Yoga al tramonto, massaggi in bolla, raccolta olive, passeggiate nella natura e molto altro.</p>
+                        <a href="esperienze.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Vedi tutte le esperienze <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Il Territorio -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="costa-dei-trabocchi.webp">
+                        <source src="Territorio-vid.MP4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Il Territorio</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Tra la Maiella innevata, l'Oasi WWF Lago di Serranella e la Costa dei Trabocchi: borghi medievali, natura protetta e mare a pochi minuti.</p>
+                        <a href="territorio.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Esplora il territorio <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- La Bottega -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="bottiglia olio.png">
+                        <source src="Bottega-vid.MP4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">La Bottega</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Olio EVO monovarietale nostro, formaggi pecorini locali, conserve artigianali, miele e salumi abruzzesi da portare a casa.</p>
+                        <a href="bottega.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Scopri la bottega <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Sala Eventi -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <img src="sala-eventi-main.jpg" alt="Sala Eventi con vista Maiella" class="w-full h-80 lg:h-[380px] object-cover">
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Sala Eventi</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Spazio esclusivo fino a 80 persone con vista mozzafiato sulla Maiella – matrimoni, compleanni, eventi aziendali.</p>
+                        <a href="sala-eventi.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Scopri la sala <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contatti -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <div class="h-[320px] lg:h-[380px] bg-gradient-to-br from-amber-900/40 to-stone-900 flex items-center justify-center">
+                        <i class="fas fa-envelope text-8xl lg:text-9xl text-amber-500 opacity-70"></i>
+                    </div>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Contatti & Prenotazioni</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Scrivici per disponibilità, richieste speciali o per organizzare la tua esperienza unica. Rispondiamo entro 24 ore.</p>
+                        <a href="contatti.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Contattaci ora <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-amber-900">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 text-center md:text-left">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-4">
+                    <img src="logo1.JPG" class="h-10" alt="Logo">
+                    <div class="text-sm leading-none">
+                        <span class="heading-font text-3xl">Bubblebee</span><br>
+                        <span class="text-amber-400">LUXURY B&amp;B</span>
+                    </div>
+                </div>
+                <div class="text-stone-500 text-sm">
+                    Via Castellata 6 • 66037 Sant'Eusanio del Sangro (CH)<br>
+                    P.IVA 02853900690 • © 2026 Bubblebee Luxury B&amp;B
+                </div>
+                <div class="flex gap-8 text-2xl">
+                    <a href="#" class="hover:text-amber-400"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-amber-400"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

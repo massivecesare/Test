@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="La Tenuta Bubblebee: 10 ettari di campi di grano e uliveti a Sant'Eusanio del Sangro, vista Maiella, 4 suite esclusive in bolle trasparenti.">
+    <title>La Tenuta • Bubblebee Luxury B&B</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body class="bg-stone-950 text-stone-200 font-sans">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-stone-950/95 backdrop-blur-md border-b border-amber-900">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 py-5 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo1.JPG" alt="Logo Bubblebee" class="h-11 lg:h-14 w-auto">
+                <div>
+                    <span class="heading-font text-3xl lg:text-4xl font-bold tracking-tighter">Bubblebee</span>
+                    <p class="text-xs lg:text-sm text-amber-400 -mt-1 tracking-[3px]">LUXURY B&amp;B</p>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-10 text-base font-medium">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="tenuta.html" class="nav-link active">La Tenuta</a>
+                <a href="stanze.html" class="nav-link">Le Bolle</a>
+                <a href="esperienze.html" class="nav-link">Esperienze</a>
+                <a href="territorio.html" class="nav-link">Il Territorio</a>
+                <a href="bottega.html" class="nav-link">La Bottega</a>
+                <a href="sala-eventi.html" class="nav-link">Sala eventi</a>
+                <a href="contatti.html" class="nav-link">Contatti</a>
+            </div>
+
+            <div class="relative hidden lg:block group">
+                <button class="flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-stone-950 font-semibold px-8 py-4 rounded-full transition-all text-sm">
+                    <i class="fas fa-calendar"></i> PRENOTA ORA
+                    <i class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"></i>
+                </button>
+                <div class="absolute right-0 mt-3 w-56 bg-stone-900 border border-amber-900/50 rounded-2xl shadow-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
+                    <a href="calendario-camere.html" class="block px-6 py-4 text-stone-200 hover:bg-amber-900/30 hover:text-amber-300 transition-colors flex items-center gap-3">
+                        <i class="fas fa-bed text-amber-400"></i> Suite
+                    </a>
+                    <a href="calendario-bolle.html" class="block px-6 py-4 text-stone-200 hover:bg-amber-900/30 hover:text-amber-300 transition-colors flex items-center gap-3">
+                        <i class="fas fa-spa text-amber-400"></i> Bolle
+                    </a>
+                </div>
+            </div>
+
+            <button id="mobile-btn" class="lg:hidden text-3xl text-amber-300"><i class="fas fa-bars"></i></button>
+        </div>
+
+        <div id="mobile-menu" class="hidden lg:hidden bg-stone-950 border-t border-amber-900">
+            <div class="px-6 py-8 flex flex-col items-center gap-6 text-lg">
+                <a href="index.html">Home</a>
+                <a href="tenuta.html">La Tenuta</a>
+                <a href="stanze.html">Le Bolle</a>
+                <a href="esperienze.html">Esperienze</a>
+                <a href="territorio.html">Il Territorio</a>
+                <a href="bottega.html">La Bottega</a>
+                <a href="sala-eventi.html">Sala Eventi</a>
+                <a href="contatti.html">Contatti</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="pt-28 pb-16 bg-gradient-to-b from-stone-950 to-black text-center">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+            <h1 class="heading-font text-6xl md:text-8xl font-bold">La Tenuta</h1>
+            <p class="mt-6 text-xl md:text-3xl text-amber-300">10 ettari di pace • Vista Maiella • Natura incontaminata</p>
+        </div>
+    </section>
+
+    <!-- CARATTERISTICHE -->
+    <section class="py-16 lg:py-24 bg-stone-950">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-16 text-center">
+                <div>
+                    <div class="text-amber-400 feature-icon mb-6"><i class="fas fa-seedling"></i></div>
+                    <h3 class="text-2xl lg:text-3xl font-bold mb-4">10 ettari</h3>
+                    <p class="text-stone-400">Campi di grano, uliveti secolari e natura incontaminata.</p>
+                </div>
+                <div>
+                    <div class="text-amber-400 feature-icon mb-6"><i class="fas fa-mountain"></i></div>
+                    <h3 class="text-2xl lg:text-3xl font-bold mb-4">Vista 360° Maiella</h3>
+                    <p class="text-stone-400">Panorama mozzafiato sulla montagna sacra, innevata d'inverno.</p>
+                </div>
+                <div>
+                    <div class="text-amber-400 feature-icon mb-6"><i class="fas fa-leaf"></i></div>
+                    <h3 class="text-2xl lg:text-3xl font-bold mb-4">Sostenibilità</h3>
+                    <p class="text-stone-400">Agricoltura naturale, zero pesticidi, raccolta olive manuale.</p>
+                </div>
+                <div>
+                    <div class="text-amber-400 feature-icon mb-6"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3 class="text-2xl lg:text-3xl font-bold mb-4">Posizione strategica</h3>
+                    <p class="text-stone-400">20-30 min dalla Costa dei Trabocchi e Oasi WWF Serranella.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAPPA E INFO GEOGRAFICHE -->
+    <section class="py-16 lg:py-24 bg-gradient-to-b from-stone-950 to-black">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="heading-font text-4xl lg:text-5xl font-bold mb-8">Dove siamo esattamente</h2>
+                    <div class="space-y-6 text-lg lg:text-xl text-stone-300">
+                        <p><strong>Indirizzo:</strong> Via Castellata 6, 66037 Sant'Eusanio del Sangro (CH), Abruzzo, Italia</p>
+                        <p><strong>Coordinate GPS:</strong> 42.166°N 14.334°E</p>
+                        <p><strong>Altitudine:</strong> circa 207 m s.l.m.</p>
+                        <p>Siamo immersi nelle colline tra la Valle del Sangro e le prime pendici della Maiella, in un territorio antico con una storia che risale all'epoca romana (antico nome Euxanum).</p>
+                        <p>Nelle vicinanze: Oasi WWF Riserva Naturale Serranella, borghi medievali come Casoli e Roccascalegna, e la Costa dei Trabocchi a breve distanza.</p>
+                    </div>
+                </div>
+                <div class="rounded-3xl overflow-hidden shadow-2xl h-96 lg:h-[500px]">
+                    <iframe 
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3019.5!2d14.332!3d42.166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x132f0b0b0b0b0b0b%3A0x0!2zNDLCsDA5JzU4LjAiTiAxNMKwMjAnMDAuMCJF!5e0!3m2!1sit!2sit!4v1730000000000!5m2!1sit!2sit" 
+                        width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-amber-900">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 text-center md:text-left">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-4">
+                    <img src="logo1.JPG" class="h-10" alt="Logo">
+                    <div class="text-sm leading-none">
+                        <span class="heading-font text-3xl">Bubblebee</span><br>
+                        <span class="text-amber-400">LUXURY B&amp;B</span>
+                    </div>
+                </div>
+                <div class="text-stone-500 text-sm">
+                    Via Castellata 6 • 66037 Sant'Eusanio del Sangro (CH)<br>
+                    P.IVA 02853900690 • © 2026 Bubblebee Luxury B&amp;B
+                </div>
+                <div class="flex gap-8 text-2xl">
+                    <a href="#" class="hover:text-amber-400"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-amber-400"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
