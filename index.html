@@ -1,4 +1,124 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Bubblebee Luxury B&B - Glamping di lusso con bolle trasparenti tra i campi di grano a Sant'Eusanio del Sangro. Vista Maiella.">
+    <title>Bubblebee Luxury B&B • Glamping di lusso in Abruzzo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
+        :root { --gold: #d4af37; }
+        .heading-font { font-family: 'Playfair Display', sans-serif; }
+        .hero-bg {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-video {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        .nav-link:after { content:''; position:absolute; width:0; height:2px; bottom:-2px; left:0; background-color:var(--gold); transition:width .3s; }
+        .nav-link:hover:after, .active:after { width:100%; }
+        .active { color: #fcd34d !important; }
+        .teaser-card {
+            transition: all 0.4s ease;
+            overflow: hidden;
+            border-radius: 1.5rem;
+        }
+        .teaser-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 25px 50px -12px rgba(212,175,55,0.25);
+        }
+        .teaser-video {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+        @media (min-width: 1024px) {
+            .teaser-video { height: 380px; }
+        }
+        .teaser-card:hover .teaser-video {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+<body class="bg-stone-950 text-stone-200 font-sans">
+
+    <!-- NAVBAR aggiornata con Il Territorio e La Bottega -->
+    <nav class="fixed top-0 left-0 right-0 z-50 bg-stone-950/95 backdrop-blur-md border-b border-amber-900">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 py-5 flex justify-between items-center">
+            <a href="index.html" class="flex items-center gap-3">
+                <img src="logo1.JPG" alt="Logo Bubblebee" class="h-11 lg:h-14 w-auto">
+                <div>
+                    <span class="heading-font text-3xl lg:text-4xl font-bold tracking-tighter">Bubblebee</span>
+                    <p class="text-xs lg:text-sm text-amber-400 -mt-1 tracking-[3px]">LUXURY B&amp;B</p>
+                </div>
+            </a>
+
+            <div class="hidden lg:flex items-center gap-10 text-base font-medium">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="tenuta.html" class="nav-link">La Tenuta</a>
+                <a href="stanze.html" class="nav-link">Le Bolle</a>
+                <a href="esperienze.html" class="nav-link">Esperienze</a>
+                <a href="territorio.html" class="nav-link">Il Territorio</a>
+                <a href="bottega.html" class="nav-link">La Bottega</a>
+                <a href="sala-eventi.html" class="nav-link">Sala Eventi</a>
+                <a href="contatti.html" class="nav-link">Contatti</a>
+            </div>
+
+            <div class="relative hidden lg:block group">
+  <button class="flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-stone-950 font-semibold px-8 py-4 rounded-full transition-all text-sm">
+    <i class="fas fa-calendar"></i> PRENOTA ORA
+    <i class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"></i>
+  </button>
+
+  <!-- Sottomenu -->
+  <div class="absolute right-0 mt-3 w-56 bg-stone-900 border border-amber-900/50 rounded-2xl shadow-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
+    <a href="calendario-camere.html" class="block px-6 py-4 text-stone-200 hover:bg-amber-900/30 hover:text-amber-300 transition-colors flex items-center gap-3">
+      <i class="fas fa-bed text-amber-400"></i> Suite
+    </a>
+    <a href="calendario-bolle.html" class="block px-6 py-4 text-stone-200 hover:bg-amber-900/30 hover:text-amber-300 transition-colors flex items-center gap-3">
+      <i class="fas fa-spa text-amber-400"></i> Bolle
+    </a>
+  </div>
+</div>
+
+            <button id="mobile-btn" class="lg:hidden text-3xl text-amber-300"><i class="fas fa-bars"></i></button>
+        </div>
+
+        <!-- Mobile menu aggiornato -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-stone-950 border-t border-amber-900">
+            <div class="px-6 py-8 flex flex-col items-center gap-6 text-lg">
+                <a href="index.html" class="hover:text-amber-300">Home</a>
+                <a href="tenuta.html" class="hover:text-amber-300">La Tenuta</a>
+                <a href="stanze.html" class="hover:text-amber-300">Le Bolle</a>
+                <a href="esperienze.html" class="hover:text-amber-300">Esperienze</a>
+                <a href="territorio.html" class="hover:text-amber-300">Il Territorio</a>
+                <a href="bottega.html" class="hover:text-amber-300">La Bottega</a>
+                <a href="sala-eventi.html" class="hover:text-amber-300">Sala Eventi</a>
+                <a href="contatti.html" class="hover:text-amber-300">Contatti</a>
+                <!-- Sottomenu PRENOTA ORA mobile -->
+    <div class="mt-4 pt-4 border-t border-amber-900/30">
+      <div class="text-amber-400 font-semibold mb-3">PRENOTA ORA</div>
+      <a href="calendario-camere.html" class="block py-3 hover:text-amber-300 transition-colors flex items-center justify-center gap-3">
+        <i class="fas fa-bed"></i> Suite
+      </a>
+      <a href="calendario-bolle.html" class="block py-3 hover:text-amber-300 transition-colors flex items-center justify-center gap-3">
+        <i class="fas fa-spa"></i> Bolle
+      </a>
+    </div>
+  </div>
+</div>
+    </nav>
+
+    <!-- HERO CON VIDEO -->
+     <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
 
 <style>
@@ -248,3 +368,133 @@
   </div>
 
 </section>
+    <!-- TEASER SEZIONI (senza più la card Galleria) -->
+    <section class="py-20 lg:py-32 bg-stone-900">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
+            <h2 class="heading-font text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16">Scopri Bubblebee</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+
+                <!-- La Tenuta -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="tenuta bubblebee.jpeg">
+                        <source src="Video-piscina.MP4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">La Tenuta</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">10 ettari di natura incontaminata tra onde di grano dorato, uliveti secolari e panorama sulla Maiella innevata.</p>
+                        <a href="tenuta.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Scopri la tenuta <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Le Bolle -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="bubbleroom1.jpg">
+                        <source src="Video-bolla.MP4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Le Bolle</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Suite trasparenti con jacuzzi privata, letto king size e vista 360° sulle stelle e sui campi.</p>
+                        <a href="stanze.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Vedi tutte le bolle <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Esperienze -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="raccolta olive.jpeg">
+                        <source src="Pasta-ulivo.MP4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Esperienze</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Raccolta olive, passeggiate al tramonto, cene in bolla e momenti autentici abruzzesi.</p>
+                        <a href="esperienze.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Scopri le esperienze <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Il Territorio -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="costa dei tabocchi.webp">
+                        <source src="Territorio-vid.MP4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Il Territorio</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Tra la Maiella innevata, l'Oasi WWF Lago di Serranella e la Costa dei Trabocchi: borghi medievali, natura protetta e mare a pochi minuti.</p>
+                        <a href="territorio.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Esplora il territorio <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- La Bottega -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <video class="teaser-video" muted loop autoplay playsinline poster="bottiglia olio.png">
+                        <source src="Bottega-vid.MP4" type="video/mp4">
+                    </video>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">La Bottega</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Olio EVO monovarietale nostro, formaggi pecorini locali, conserve artigianali, miele e salumi abruzzesi da portare a casa.</p>
+                        <a href="bottega.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Scopri la bottega <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Contatti (rimane come icona) -->
+                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
+                    <div class="h-[320px] lg:h-[380px] bg-gradient-to-br from-amber-900/40 to-stone-900 flex items-center justify-center">
+                        <i class="fas fa-envelope text-8xl lg:text-9xl text-amber-500 opacity-70"></i>
+                    </div>
+                    <div class="p-8 lg:p-10">
+                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Contatti & Prenotazioni</h3>
+                        <p class="text-stone-300 text-base lg:text-lg mb-6">Scrivici per disponibilità, richieste speciali o per organizzare la tua esperienza unica. Rispondiamo entro 24 ore.</p>
+                        <a href="contatti.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
+                            Contattaci ora <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-black py-16 border-t border-amber-900">
+        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 text-center md:text-left">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center gap-4">
+                    <img src="logo1.JPG" class="h-10" alt="Logo">
+                    <div class="text-sm leading-none">
+                        <span class="heading-font text-3xl">Bubblebee</span><br>
+                        <span class="text-amber-400">LUXURY B&amp;B</span>
+                    </div>
+                </div>
+                <div class="text-stone-500 text-sm">
+                    Via Castellata 6 • 66037 Sant'Eusanio del Sangro (CH)<br>
+                    P.IVA 02853900690 • © 2026 Bubblebee Luxury B&amp;B
+                </div>
+                <div class="flex gap-8 text-2xl">
+                    <a href="#" class="hover:text-amber-400"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-amber-400"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('mobile-btn');
+        const menu = document.getElementById('mobile-menu');
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+            btn.innerHTML = menu.classList.contains('hidden')
+                ? '<i class="fas fa-bars"></i>'
+                : '<i class="fas fa-times"></i>';
+        });
+    </script>
+</body>
+</html>
