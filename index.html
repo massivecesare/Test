@@ -3,497 +3,377 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Bubblebee Luxury B&B - Glamping di lusso con bolle trasparenti tra i campi di grano a Sant'Eusanio del Sangro. Vista Maiella.">
-    <title>Bubblebee Luxury B&B • Glamping di lusso in Abruzzo</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>Tenuta Bubblebee | Sant'Eusanio del Sangro</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@400;500;600&display=swap');
-        :root { --gold: #d4af37; }
-        .heading-font { font-family: 'Playfair Display', sans-serif; }
-        .hero-bg {
-            position: relative;
-            overflow: hidden;
+        /* --- VARIABILI & RESET --- */
+        :root {
+            --primary-gold: #D4AF37; /* Oro Miele */
+            --primary-dark: #2C3E50; /* Blu Notte elegante */
+            --accent-green: #556B2F; /* Verde Oliva */
+            --light-bg: #F9F9F7;     /* Bianco sporco/crema */
+            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+            --font-main: 'Lato', sans-serif;
+            --font-serif: 'Playfair Display', serif;
         }
-        .hero-video {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: -1;
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+        body { font-family: var(--font-main); background-color: var(--light-bg); color: var(--primary-dark); line-height: 1.6; overflow-x: hidden; }
+        img { max-width: 100%; display: block; }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 { font-family: var(--font-serif); font-weight: 700; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--accent-green); position: relative; padding: 0 15px; }
+        .section-title::after { content: '🐝'; display: block; font-size: 1.5rem; margin-top: 10px; color: var(--primary-gold); }
+
+        /* --- BUTTONS --- */
+        .btn { display: inline-block; padding: 12px 30px; background: var(--primary-gold); color: var(--white); text-decoration: none; border-radius: 50px; font-weight: 700; transition: all 0.3s; text-transform: uppercase; letter-spacing: 1px; border: 2px solid var(--primary-gold); cursor: pointer; }
+        .btn:hover { background: transparent; color: var(--primary-gold); transform: translateY(-3px); }
+        .btn-outline { background: transparent; border: 2px solid var(--white); }
+        .btn-outline:hover { background: var(--white); color: var(--primary-dark); }
+
+        /* --- HEADER & NAV --- */
+        header { position: fixed; width: 100%; top: 0; z-index: 1000; transition: 0.4s; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; }
+        header.scrolled { background: rgba(255, 255, 255, 0.98); box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 10px 5%; }
+        .logo { font-size: 1.5rem; font-family: var(--font-serif); color: var(--white); font-weight: bold; z-index: 1001; }
+        header.scrolled .logo { color: var(--accent-green); }
+        
+        /* Mobile Menu Toggle */
+        .menu-toggle { display: none; color: var(--white); font-size: 1.5rem; cursor: pointer; z-index: 1001; }
+        header.scrolled .menu-toggle { color: var(--primary-dark); }
+
+        nav ul { display: flex; list-style: none; gap: 30px; align-items: center; }
+        nav a { text-decoration: none; color: var(--white); font-weight: 500; transition: 0.3s; font-size: 0.95rem; }
+        header.scrolled nav a { color: var(--primary-dark); }
+        nav a:hover { color: var(--primary-gold); }
+
+        /* --- HERO SECTION --- */
+        /* Immagine di sfondo: Tenda glamping/Bubble sotto le stelle o al tramonto */
+        .hero { 
+            height: 100vh; 
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('https://images.unsplash.com/photo-1618767699632-628b7fa43d6c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80'); 
+            background-size: cover; 
+            background-position: center; 
+            background-attachment: fixed; /* Effetto Parallax su PC */
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: var(--white); 
+            position: relative; 
+            padding: 0 20px;
         }
-        .nav-link:after { content:''; position:absolute; width:0; height:2px; bottom:-2px; left:0; background-color:var(--gold); transition:width .3s; }
-        .nav-link:hover:after, .active:after { width:100%; }
-        .active { color: #fcd34d !important; }
-        .teaser-card {
-            transition: all 0.4s ease;
-            overflow: hidden;
-            border-radius: 1.5rem;
+        .hero-content h1 { font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 20px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); line-height: 1.1; }
+        .hero-content p { font-size: clamp(1rem, 2vw, 1.5rem); margin-bottom: 30px; max-width: 700px; margin-left: auto; margin-right: auto; font-weight: 300; }
+
+        /* --- SEZIONI GENERALI --- */
+        section { padding: 80px 5%; }
+        
+        /* --- ACCOMMODATION --- */
+        .rooms-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1400px; margin: 0 auto; }
+        .room-card { background: var(--white); border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); transition: 0.3s; position: relative; display: flex; flex-direction: column; }
+        .room-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.1); }
+        .room-img { height: 250px; background-size: cover; background-position: center; }
+        .room-info { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .room-tag { background: var(--primary-gold); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.75rem; position: absolute; top: 15px; right: 15px; font-weight: bold; text-transform: uppercase; }
+        .bubble-tag { background: var(--accent-green); }
+
+        /* --- EVENTI & WELNESS (Griglia Alternata) --- */
+        .features { background: var(--white); }
+        .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; max-width: 1200px; margin: 0 auto 80px auto; }
+        .feature-grid:last-child { margin-bottom: 0; }
+        .feature-grid.reverse { direction: rtl; } /* Inverte ordine img/testo */
+        .feature-grid.reverse .feature-text { direction: ltr; }
+        .feature-img-box { position: relative; }
+        .feature-img { width: 100%; height: 400px; object-fit: cover; border-radius: 20px; box-shadow: 15px 15px 0px var(--primary-gold); }
+        .feature-text h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--primary-dark); }
+        .feature-text ul { list-style: none; margin-top: 15px; }
+        .feature-text li { margin-bottom: 10px; display: flex; align-items: center; gap: 10px; }
+
+        /* --- TERRITORIO (Carousel Orizzontale) --- */
+        .territory { background: var(--accent-green); color: white; text-align: center; }
+        .territory .section-title { color: white; }
+        .territory .section-title::after { color: white; opacity: 0.5; }
+        
+        .territory-cards { 
+            display: flex; 
+            gap: 20px; 
+            overflow-x: auto; 
+            padding: 20px 10px 40px 10px; /* Spazio per scrollbar e ombra */
+            scroll-snap-type: x mandatory;
+            justify-content: flex-start; /* Default start per mobile */
         }
-        .teaser-card:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 25px 50px -12px rgba(212,175,55,0.25);
+        /* Centra le card se sono poche e c'è spazio (Desktop) */
+        @media (min-width: 1000px) { .territory-cards { justify-content: center; } }
+
+        .t-card { 
+            background: rgba(255,255,255,0.15); 
+            backdrop-filter: blur(10px); 
+            border: 1px solid rgba(255,255,255,0.2); 
+            padding: 30px; 
+            border-radius: 15px; 
+            min-width: 280px; 
+            max-width: 300px; 
+            text-align: left; 
+            scroll-snap-align: center;
+            flex-shrink: 0;
+            transition: 0.3s;
         }
-        .teaser-video {
+        .t-card:hover { background: rgba(255,255,255,0.25); transform: translateY(-5px); }
+        .t-card i { font-size: 2rem; margin-bottom: 15px; color: var(--primary-gold); display: block; }
+        .t-card h4 { font-size: 1.3rem; margin-bottom: 10px; }
+        .t-card p { font-size: 0.9rem; opacity: 0.9; }
+
+        /* --- MAPPA E CONTATTI --- */
+        .contact-section { padding-top: 0; position: relative; margin-top: -50px; z-index: 10; }
+        .map-container {
             width: 100%;
-            height: 320px;
-            object-fit: cover;
-            transition: transform 0.6s ease;
+            height: 450px;
+            filter: grayscale(20%); /* Mappa stilizzata */
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 5px solid var(--white);
         }
-        @media (min-width: 1024px) {
-            .teaser-video { height: 380px; }
-        }
-        .teaser-card:hover .teaser-video {
-            transform: scale(1.08);
+
+        /* --- FOOTER --- */
+        footer { background: var(--primary-dark); color: white; padding: 60px 5%; font-size: 0.9rem; }
+        .footer-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        .footer-col h4 { color: var(--primary-gold); margin-bottom: 20px; font-size: 1.2rem; }
+        .footer-col ul { list-style: none; }
+        .footer-col ul li { margin-bottom: 10px; opacity: 0.8; }
+        .socials a { color: white; margin-right: 15px; font-size: 1.4rem; transition: 0.3s; }
+        .socials a:hover { color: var(--primary-gold); }
+
+        /* --- RESPONSIVE MEDIA QUERIES --- */
+        @media (max-width: 768px) {
+            /* Mobile Nav */
+            .menu-toggle { display: block; }
+            nav { position: absolute; top: 100%; left: 0; width: 100%; background: var(--white); box-shadow: 0 5px 10px rgba(0,0,0,0.1); overflow: hidden; max-height: 0; transition: 0.4s ease-out; }
+            nav.active { max-height: 300px; }
+            nav ul { flex-direction: column; padding: 20px; align-items: flex-start; }
+            nav a { color: var(--primary-dark); display: block; width: 100%; padding: 10px 0; border-bottom: 1px solid #eee; }
+            header { padding: 15px 20px; }
+            
+            /* Grids Mobile */
+            .feature-grid { grid-template-columns: 1fr; gap: 30px; direction: ltr !important; }
+            .feature-img { height: 250px; box-shadow: none; margin-bottom: 10px; }
+            .section-title { font-size: 2rem; }
         }
     </style>
 </head>
-<body class="bg-stone-950 text-stone-200 font-sans">
+<body>
 
-    <!-- NAVBAR aggiornata con Il Territorio e La Bottega -->
-    <nav class="fixed top-0 left-0 right-0 z-50 bg-stone-950/95 backdrop-blur-md border-b border-amber-900">
-        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 py-5 flex justify-between items-center">
-            <a href="index.html" class="flex items-center gap-3">
-                <img src="logo1.JPG" alt="Logo Bubblebee" class="h-11 lg:h-14 w-auto">
-                <div>
-                    <span class="heading-font text-3xl lg:text-4xl font-bold tracking-tighter">Bubblebee</span>
-                    <p class="text-xs lg:text-sm text-amber-400 -mt-1 tracking-[3px]">LUXURY B&amp;B</p>
+    <header id="navbar">
+        <div class="logo">Bubblebee 🐝</div>
+        <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
+        <nav id="nav-menu">
+            <ul>
+                <li><a href="#camere">Camere & Suites</a></li>
+                <li><a href="#eventi">Wellness & Eventi</a></li>
+                <li><a href="#territorio">Dintorni</a></li>
+                <li><a href="#mappa">Dove Siamo</a></li>
+                <li><a href="#prenota" class="btn btn-outline" style="color:var(--primary-dark); border-color:var(--primary-dark); margin-top:5px;">Prenota Ora</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Dormi sotto le stelle</h1>
+            <p>Tenuta Bubblebee. Il lusso della natura, la trasparenza delle emozioni.<br>Nel cuore verde dell'Abruzzo.</p>
+            <a href="#camere" class="btn">Scegli la tua bolla</a>
+        </div>
+    </section>
+
+    <section style="text-align: center; max-width: 900px; margin: 0 auto; padding-bottom: 40px;">
+        <h2 style="color: var(--accent-green); margin-bottom: 20px; font-size: 2rem;">Un Rifugio tra gli Ulivi</h2>
+        <p>Benvenuti a Sant'Eusanio del Sangro. Qui il tempo rallenta. Goditi la nostra <strong>piscina a sfioro</strong>, partecipa alla <strong>raccolta delle olive</strong> o rilassati nella tua <strong>Bubble Room</strong> privata con vista sulla Via Lattea.</p>
+    </section>
+
+    <section id="camere">
+        <h2 class="section-title">Le Nostre Dimore</h2>
+        <div class="rooms-grid">
+            
+            <div class="room-card">
+                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1629141026965-f9a8f273648a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <span class="room-tag bubble-tag">Top Experience</span>
+                <div class="room-info">
+                    <h3>Bubble Suite "Regina"</h3>
+                    <p>Dormire immersi nella natura senza rinunciare al comfort. Letto rotondo King Size, bagno privato di design e telescopio per le stelle.</p>
+                    <div style="margin-top: 15px;">
+                        <a href="#" style="color: var(--accent-green); font-weight: bold; text-decoration: none;">Scopri di più &rarr;</a>
+                    </div>
                 </div>
-            </a>
-
-            <div class="hidden lg:flex items-center gap-10 text-base font-medium">
-                <a href="index.html" class="nav-link active">Home</a>
-                <a href="tenuta.html" class="nav-link">La Tenuta</a>
-                <a href="stanze.html" class="nav-link">Le Bolle</a>
-                <a href="esperienze.html" class="nav-link">Esperienze</a>
-                <a href="territorio.html" class="nav-link">Il Territorio</a>
-                <a href="bottega.html" class="nav-link">La Bottega</a>
-                <a href="sala-eventi.html" class="nav-link">Sala Eventi</a>
-                <a href="contatti.html" class="nav-link">Contatti</a>
             </div>
 
-            <div class="relative hidden lg:block group">
-  <button class="flex items-center gap-3 bg-amber-500 hover:bg-amber-400 text-stone-950 font-semibold px-8 py-4 rounded-full transition-all text-sm">
-    <i class="fas fa-calendar"></i> PRENOTA ORA
-    <i class="fas fa-chevron-down text-xs ml-1 transition-transform group-hover:rotate-180"></i>
-  </button>
-
-  <!-- Sottomenu -->
-  <div class="absolute right-0 mt-3 w-56 bg-stone-900 border border-amber-900/50 rounded-2xl shadow-2xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform scale-95 group-hover:scale-100 z-50">
-    <a href="calendario-camere.html" class="block px-6 py-4 text-stone-200 hover:bg-amber-900/30 hover:text-amber-300 transition-colors flex items-center gap-3">
-      <i class="fas fa-bed text-amber-400"></i> Suite
-    </a>
-    <a href="calendario-bolle.html" class="block px-6 py-4 text-stone-200 hover:bg-amber-900/30 hover:text-amber-300 transition-colors flex items-center gap-3">
-      <i class="fas fa-spa text-amber-400"></i> Bolle
-    </a>
-  </div>
-</div>
-
-            <button id="mobile-btn" class="lg:hidden text-3xl text-amber-300"><i class="fas fa-bars"></i></button>
-        </div>
-
-        <!-- Mobile menu aggiornato -->
-        <div id="mobile-menu" class="hidden lg:hidden bg-stone-950 border-t border-amber-900">
-            <div class="px-6 py-8 flex flex-col items-center gap-6 text-lg">
-                <a href="index.html" class="hover:text-amber-300">Home</a>
-                <a href="tenuta.html" class="hover:text-amber-300">La Tenuta</a>
-                <a href="stanze.html" class="hover:text-amber-300">Le Bolle</a>
-                <a href="esperienze.html" class="hover:text-amber-300">Esperienze</a>
-                <a href="territorio.html" class="hover:text-amber-300">Il Territorio</a>
-                <a href="bottega.html" class="hover:text-amber-300">La Bottega</a>
-                <a href="sala-eventi.html" class="hover:text-amber-300">Sala Eventi</a>
-                <a href="contatti.html" class="hover:text-amber-300">Contatti</a>
-                <!-- Sottomenu PRENOTA ORA mobile -->
-    <div class="mt-4 pt-4 border-t border-amber-900/30">
-      <div class="text-amber-400 font-semibold mb-3">PRENOTA ORA</div>
-      <a href="calendario-camere.html" class="block py-3 hover:text-amber-300 transition-colors flex items-center justify-center gap-3">
-        <i class="fas fa-bed"></i> Suite
-      </a>
-      <a href="calendario-bolle.html" class="block py-3 hover:text-amber-300 transition-colors flex items-center justify-center gap-3">
-        <i class="fas fa-spa"></i> Bolle
-      </a>
-    </div>
-  </div>
-</div>
-    </nav>
-
-    <!-- HERO CON VIDEO -->
-     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Raleway:wght@200;300;400&display=swap" rel="stylesheet">
-
-<style>
-  .hero {
-    position: relative;
-    min-height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    overflow: hidden;
-  }
-
-  .hero-video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-  }
-
-  .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background:
-      linear-gradient(to right, rgba(5,5,5,0.75) 0%, rgba(5,5,5,0.05) 40%, rgba(5,5,5,0.05) 60%, rgba(5,5,5,0.75) 100%),
-      linear-gradient(to bottom, rgba(5,5,5,0.4) 0%, transparent 30%, transparent 70%, rgba(5,5,5,0.6) 100%);
-  }
-
-  .hero-content {
-    position: relative;
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100svh;
-    padding: 2rem;
-  }
-
-  .hero-top {
-    display: flex;
-    justify-content: center;
-    padding-top: 5rem;
-    animation: fadeUp 1.4s ease both;
-  }
-
-  .location-tag {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 200;
-    font-size: clamp(0.6rem, 1.1vw, 0.75rem);
-    letter-spacing: 0.35em;
-    color: #e8d5b0;
-    text-transform: uppercase;
-    border-bottom: 1px solid rgba(201,169,110,0.4);
-    padding-bottom: 0.4rem;
-  }
-
-  .hero-middle {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .title-left {
-    align-self: flex-start;
-    padding-left: clamp(1rem, 5vw, 8rem);
-    animation: fadeRight 1.6s ease both 0.3s;
-  }
-
-  .title-right {
-    align-self: flex-end;
-    padding-right: clamp(1rem, 5vw, 8rem);
-    text-align: right;
-    animation: fadeLeft 1.6s ease both 0.5s;
-  }
-
-  .hero-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(3.5rem, 10vw, 10rem);
-    line-height: 0.92;
-    color: #fff;
-    letter-spacing: -0.01em;
-  }
-
-  .hero-title em {
-    font-style: normal;
-    color: #c9a96e;
-    font-weight: 400;
-  }
-
-  .hero-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    padding-bottom: clamp(2rem, 5vh, 4rem);
-    gap: 2rem;
-  }
-
-  .desc-left {
-    max-width: 28ch;
-    padding-left: clamp(1rem, 5vw, 8rem);
-    animation: fadeUp 1.8s ease both 0.7s;
-  }
-
-  .desc-text {
-    font-family: 'Cormorant Garamond', serif;
-    font-weight: 300;
-    font-style: italic;
-    font-size: clamp(1rem, 1.6vw, 1.25rem);
-    line-height: 1.7;
-    color: rgba(245,239,230,0.85);
-  }
-
-  .desc-text span {
-    display: block;
-    width: 2rem;
-    height: 1px;
-    background: #c9a96e;
-    margin-bottom: 1rem;
-  }
-
-  .cta-right {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 1rem;
-    padding-right: clamp(1rem, 5vw, 8rem);
-    animation: fadeUp 1.8s ease both 0.9s;
-  }
-
-  .cta-primary {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    font-size: clamp(0.75rem, 1.2vw, 0.9rem);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #0a0a0a;
-    background: #c9a96e;
-    padding: 1rem 2.4rem;
-    text-decoration: none;
-    border-radius: 100px;
-    transition: background 0.3s;
-  }
-  .cta-primary:hover { background: #e8d5b0; }
-
-  .cta-secondary {
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    font-size: clamp(0.7rem, 1vw, 0.82rem);
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: #e8d5b0;
-    text-decoration: none;
-    border-bottom: 1px solid rgba(201,169,110,0.4);
-    padding-bottom: 0.2rem;
-    transition: color 0.3s, border-color 0.3s;
-  }
-  .cta-secondary:hover { color: #fff; border-color: #fff; }
-
-  .scroll-hint {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    animation: fadeIn 2.4s ease both 1.4s;
-  }
-  .scroll-hint p {
-    font-family: 'Raleway', sans-serif;
-    font-size: 0.55rem;
-    letter-spacing: 0.3em;
-    color: rgba(201,169,110,0.6);
-    text-transform: uppercase;
-  }
-  .scroll-line {
-    width: 1px;
-    height: 3rem;
-    background: linear-gradient(to bottom, rgba(201,169,110,0.6), transparent);
-    animation: scrollDrop 2s ease-in-out infinite 1.4s;
-  }
-
-  @keyframes fadeUp    { from { opacity:0; transform:translateY(30px) }  to { opacity:1; transform:translateY(0) } }
-  @keyframes fadeRight { from { opacity:0; transform:translateX(-40px) } to { opacity:1; transform:translateX(0) } }
-  @keyframes fadeLeft  { from { opacity:0; transform:translateX(40px) }  to { opacity:1; transform:translateX(0) } }
-  @keyframes fadeIn    { from { opacity:0 } to { opacity:1 } }
-  @keyframes scrollDrop {
-    0%, 100% { opacity:0.5; }
-    50%       { opacity:1; }
-  }
-
-  @media (max-width: 640px) {
-    .hero-bottom { flex-direction: column; align-items: flex-start; padding-bottom: 6rem; }
-    .cta-right { align-items: flex-start; padding-left: clamp(1rem, 5vw, 3rem); padding-right: 0; }
-  }
-</style>
-
-<section class="hero pt-20">
-
-  <video class="hero-video" autoplay muted loop playsinline poster="vista tenuta.jpeg">
-    <source src="Videoindietrotenuta.MP4" type="video/mp4">
-  </video>
-
-  <div class="hero-overlay"></div>
-
-  <div class="hero-content">
-
-    <div class="hero-top">
-      <p class="location-tag">Sant'Eusanio del Sangro &nbsp;·&nbsp; Abruzzo</p>
-    </div>
-
-    <div class="hero-middle">
-      <div class="title-left">
-        <h1 class="hero-title">Dormire<br>tra le <em>stelle</em></h1>
-      </div>
-      <div class="title-right">
-        <h1 class="hero-title">e il <em>grano</em><br>dorato</h1>
-      </div>
-    </div>
-
-    <div class="hero-bottom">
-      <div class="desc-left">
-        <p class="desc-text">
-          <span></span>
-          Bolle di cristallo sospese<br>
-          tra la Maiella e il profumo del mare.<br>
-          Una notte, un'emozione,<br>
-          un ricordo per sempre.
-        </p>
-      </div>
-      <div class="cta-right">
-        <a href="stanze.html" class="cta-primary">Scopri le Bolle</a>
-        <a href="tenuta.html" class="cta-secondary">Prenota la tua fuga</a>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="scroll-hint">
-    <div class="scroll-line"></div>
-    <p>Scorri</p>
-  </div>
-
-</section>
-    <!-- TEASER SEZIONI (senza più la card Galleria) -->
-    <section class="py-20 lg:py-32 bg-stone-900">
-        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12">
-            <h2 class="heading-font text-4xl md:text-5xl lg:text-6xl font-bold text-center mb-16">Scopri Bubblebee</h2>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-
-                <!-- La Tenuta -->
-                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
-                    <video class="teaser-video" muted loop autoplay playsinline poster="tenuta bubblebee.jpeg">
-                        <source src="Video-piscina.MP4" type="video/mp4">
-                    </video>
-                    <div class="p-8 lg:p-10">
-                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">La Tenuta</h3>
-                        <p class="text-stone-300 text-base lg:text-lg mb-6">10 ettari di natura incontaminata tra onde di grano dorato, uliveti secolari e panorama sulla Maiella innevata.</p>
-                        <a href="tenuta.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
-                            Scopri la tenuta <i class="fas fa-arrow-right"></i>
-                        </a>
+            <div class="room-card">
+                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <span class="room-tag bubble-tag">Romantic</span>
+                <div class="room-info">
+                    <h3>Bubble Suite "Miele"</h3>
+                    <p>Immersa nel bosco della tenuta per la massima privacy. Dotata di vasca idromassaggio esterna riscaldata e colazione in camera.</p>
+                    <div style="margin-top: 15px;">
+                        <a href="#" style="color: var(--accent-green); font-weight: bold; text-decoration: none;">Scopri di più &rarr;</a>
                     </div>
                 </div>
+            </div>
 
-                <!-- Le Bolle -->
-                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
-                    <video class="teaser-video" muted loop autoplay playsinline poster="bubbleroom1.jpg">
-                        <source src="Video-bolla.MP4" type="video/mp4">
-                    </video>
-                    <div class="p-8 lg:p-10">
-                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Le Bolle</h3>
-                        <p class="text-stone-300 text-base lg:text-lg mb-6">Suite trasparenti con jacuzzi privata, letto king size e vista 360° sulle stelle e sui campi.</p>
-                        <a href="stanze.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
-                            Vedi tutte le bolle <i class="fas fa-arrow-right"></i>
-                        </a>
+            <div class="room-card">
+                <div class="room-img" style="background-image: url('https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');"></div>
+                <span class="room-tag">Country House</span>
+                <div class="room-info">
+                    <h3>Le Camere del Casale</h3>
+                    <p>4 camere matrimoniali nel casale in pietra ristrutturato. Travi a vista, pavimenti in cotto e vista sulla vallata del Sangro.</p>
+                    <div style="margin-top: 15px;">
+                        <a href="#" style="color: var(--accent-green); font-weight: bold; text-decoration: none;">Scopri di più &rarr;</a>
                     </div>
                 </div>
-
-                <!-- Esperienze -->
-                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
-                    <video class="teaser-video" muted loop autoplay playsinline poster="raccolta olive.jpeg">
-                        <source src="Pasta-ulivo.MP4" type="video/mp4">
-                    </video>
-                    <div class="p-8 lg:p-10">
-                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Esperienze</h3>
-                        <p class="text-stone-300 text-base lg:text-lg mb-6">Raccolta olive, passeggiate al tramonto, cene in bolla e momenti autentici abruzzesi.</p>
-                        <a href="esperienze.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
-                            Scopri le esperienze <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Il Territorio -->
-                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
-                    <video class="teaser-video" muted loop autoplay playsinline poster="costa dei tabocchi.webp">
-                        <source src="Territorio-vid.MP4" type="video/mp4">
-                    </video>
-                    <div class="p-8 lg:p-10">
-                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Il Territorio</h3>
-                        <p class="text-stone-300 text-base lg:text-lg mb-6">Tra la Maiella innevata, l'Oasi WWF Lago di Serranella e la Costa dei Trabocchi: borghi medievali, natura protetta e mare a pochi minuti.</p>
-                        <a href="territorio.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
-                            Esplora il territorio <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- La Bottega -->
-                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
-                    <video class="teaser-video" muted loop autoplay playsinline poster="bottiglia olio.png">
-                        <source src="Bottega-vid.MP4" type="video/mp4">
-                    </video>
-                    <div class="p-8 lg:p-10">
-                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">La Bottega</h3>
-                        <p class="text-stone-300 text-base lg:text-lg mb-6">Olio EVO monovarietale nostro, formaggi pecorini locali, conserve artigianali, miele e salumi abruzzesi da portare a casa.</p>
-                        <a href="bottega.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
-                            Scopri la bottega <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Contatti (rimane come icona) -->
-                <div class="teaser-card bg-stone-800 rounded-3xl overflow-hidden shadow-xl">
-                    <div class="h-[320px] lg:h-[380px] bg-gradient-to-br from-amber-900/40 to-stone-900 flex items-center justify-center">
-                        <i class="fas fa-envelope text-8xl lg:text-9xl text-amber-500 opacity-70"></i>
-                    </div>
-                    <div class="p-8 lg:p-10">
-                        <h3 class="heading-font text-3xl lg:text-4xl font-bold mb-4">Contatti & Prenotazioni</h3>
-                        <p class="text-stone-300 text-base lg:text-lg mb-6">Scrivici per disponibilità, richieste speciali o per organizzare la tua esperienza unica. Rispondiamo entro 24 ore.</p>
-                        <a href="contatti.html" class="inline-flex items-center gap-3 text-amber-400 hover:text-amber-300 font-medium text-lg">
-                            Contattaci ora <i class="fas fa-arrow-right"></i>
-                        </a>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <!-- FOOTER -->
-    <footer class="bg-black py-16 border-t border-amber-900">
-        <div class="max-w-screen-2xl mx-auto px-6 lg:px-12 text-center md:text-left">
-            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex items-center gap-4">
-                    <img src="logo1.JPG" class="h-10" alt="Logo">
-                    <div class="text-sm leading-none">
-                        <span class="heading-font text-3xl">Bubblebee</span><br>
-                        <span class="text-amber-400">LUXURY B&amp;B</span>
-                    </div>
-                </div>
-                <div class="text-stone-500 text-sm">
-                    Via Castellata 6 • 66037 Sant'Eusanio del Sangro (CH)<br>
-                    P.IVA 02853900690 • © 2026 Bubblebee Luxury B&amp;B
-                </div>
-                <div class="flex gap-8 text-2xl">
-                    <a href="#" class="hover:text-amber-400"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-amber-400"><i class="fab fa-facebook"></i></a>
+    <section id="eventi" class="features">
+        <h2 class="section-title">Esperienze Uniche</h2>
+
+        <div class="feature-grid">
+            <div class="feature-img-box">
+                <img src="https://images.unsplash.com/photo-1572331165267-854da2b00dc1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Piscina Tenuta" class="feature-img">
+            </div>
+            <div class="feature-text">
+                <h3>Relax a Bordo Piscina</h3>
+                <p>La nostra piscina a sfioro si affaccia direttamente sugli uliveti. Un'oasi di pace dove leggere un libro, sorseggiare un aperitivo al tramonto o semplicemente ascoltare il silenzio della campagna.</p>
+                <ul>
+                    <li><i class="fas fa-water" style="color:var(--primary-gold)"></i> Piscina Salata</li>
+                    <li><i class="fas fa-cocktail" style="color:var(--primary-gold)"></i> Servizio Bar</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-grid reverse">
+            <div class="feature-img-box">
+                <img src="https://images.unsplash.com/photo-1552196563-55cd4e45efb3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Yoga e Wellness" class="feature-img">
+            </div>
+            <div class="feature-text">
+                <h3>Wellness & Sala Eventi</h3>
+                <p>Organizziamo sessioni di Yoga al mattino e ritiri olistici nella nostra nuova sala eventi vetrata "L'Alveare". Uno spazio polifunzionale perfetto anche per piccoli eventi privati, meeting aziendali o feste esclusive.</p>
+                <ul>
+                    <li><i class="fas fa-spa" style="color:var(--primary-gold)"></i> Massaggi su prenotazione</li>
+                    <li><i class="fas fa-users" style="color:var(--primary-gold)"></i> Capienza 50 persone</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-img-box">
+                <img src="https://images.unsplash.com/photo-1471193945509-9adadd0974ce?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" alt="Raccolta Olive" class="feature-img">
+            </div>
+            <div class="feature-text">
+                <h3>L'Oro Verde: Esperienza Raccolta</h3>
+                <p>In autunno, diventa contadino per un giorno. Partecipa alla raccolta delle olive nella nostra tenuta, visita il frantoio locale e gusta l'olio nuovo sulla bruschetta calda. Un'esperienza autentica che ti riconnette con la terra.</p>
+                <a href="#" class="btn" style="margin-top: 15px; font-size: 0.8rem;">Richiedi Info Autunno</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="territorio" class="territory">
+        <h2 class="section-title">30 Minuti di Meraviglia</h2>
+        <p style="margin-bottom: 30px;">Cosa fare nei dintorni di Sant'Eusanio del Sangro.</p>
+        
+        <div class="territory-cards">
+            <div class="t-card">
+                <i class="fas fa-anchor"></i>
+                <h4>Costa dei Trabocchi</h4>
+                <p>25 min. Cene romantiche sospese sul mare sulle antiche macchine da pesca. Un'esperienza culinaria unica al mondo.</p>
+            </div>
+            
+            <div class="t-card">
+                <i class="fas fa-church"></i>
+                <h4>Lanciano</h4>
+                <p>15 min. Città d'arte e del Miracolo Eucaristico. Passeggia tra i vicoli medievali e le botteghe storiche.</p>
+            </div>
+            
+            <div class="t-card">
+                <i class="fas fa-cookie-bite"></i>
+                <h4>Castel Frentano</h4>
+                <p>10 min. La patria del <strong>Bocconotto</strong>, il dolce ripieno di cioccolato e mandorle. Tappa obbligatoria per i golosi!</p>
+            </div>
+            
+            <div class="t-card">
+                <i class="fas fa-mountain"></i>
+                <h4>Parco della Majella</h4>
+                <p>30 min. Escursioni, trekking e cascate a Guardiagrele, la "città di pietra" descritta da D'Annunzio.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="mappa" style="background: var(--light-bg); padding-bottom: 0;">
+        <h2 class="section-title">Dove Siamo</h2>
+        <div style="max-width: 1000px; margin: 0 auto; text-align: center; margin-bottom: 30px;">
+            <p><strong>Tenuta Bubblebee</strong><br>Via Castellata 6, Sant'Eusanio del Sangro (CH)</p>
+        </div>
+        
+        <div class="map-container">
+            <iframe 
+                width="100%" 
+                height="100%" 
+                frameborder="0" 
+                scrolling="no" 
+                marginheight="0" 
+                marginwidth="0" 
+                src="https://maps.google.com/maps?q=Via+Castellata+6,+Sant'Eusanio+del+Sangro&t=&z=15&ie=UTF8&iwloc=&output=embed">
+            </iframe>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Tenuta Bubblebee 🐝</h3>
+                <p>Luxury Glamping & Country House.<br>Un sogno in Abruzzo.</p>
+            </div>
+            <div class="footer-col">
+                <h4>Contatti Rapidi</h4>
+                <ul>
+                    <li><i class="fas fa-phone"></i> +39 333 123 4567</li>
+                    <li><i class="fas fa-envelope"></i> info@bubblebee.it</li>
+                    <li><i class="fab fa-whatsapp"></i> Chat WhatsApp</li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h4>Social</h4>
+                <div class="socials">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
                 </div>
             </div>
+        </div>
+        <div style="margin-top: 50px; text-align: center; opacity: 0.5; font-size: 0.8rem;">
+            &copy; 2024 Tenuta Bubblebee - P.IVA 0000000000
         </div>
     </footer>
 
     <script>
-        const btn = document.getElementById('mobile-btn');
-        const menu = document.getElementById('mobile-menu');
-        btn.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
-            btn.innerHTML = menu.classList.contains('hidden')
-                ? '<i class="fas fa-bars"></i>'
-                : '<i class="fas fa-times"></i>';
+        // Cambio colore navbar allo scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Toggle Menu Mobile
+        function toggleMenu() {
+            const nav = document.getElementById('nav-menu');
+            nav.classList.toggle('active');
+        }
+
+        // Chiudi menu al click su un link (mobile)
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('nav-menu').classList.remove('active');
+            });
         });
     </script>
 </body>
