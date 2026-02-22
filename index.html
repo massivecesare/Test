@@ -1,2066 +1,558 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Tenuta BubbleBee - Luxury Spa Resort innovativo a Sant'Eusanio del Sangro">
-    <meta name="theme-color" content="#0A0E27">
-    <title>Tenuta BubbleBee - Future Luxury Experience</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --dark: #0A0E27;
-            --accent: #00E5A0;
-            --secondary: #6366F1;
-            --light: #F8FAFC;
-            --glass: rgba(255, 255, 255, 0.05);
-            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            --gradient-2: linear-gradient(135deg, #00E5A0 0%, #00A896 100%);
-            --gradient-3: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            color: var(--light);
-            background: var(--dark);
-            overflow-x: hidden;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        /* Performance optimizations */
-        .hero-bg,
-        .grid-overlay,
-        .room-card,
-        .spa-card,
-        .feature-item,
-        .location-card,
-        .contact-item {
-            will-change: transform;
-            transform: translateZ(0);
-            backface-visibility: hidden;
-        }
-
-        /* Reduce motion for accessibility */
-        @media (prefers-reduced-motion: reduce) {
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-
-            .scroll-indicator {
-                animation: none;
-            }
-        }
-
-        /* Custom cursor */
-        body {
-            cursor: none;
-        }
-
-        .cursor {
-            position: fixed;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 10000;
-            transition: all 0.1s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor-follower {
-            position: fixed;
-            width: 40px;
-            height: 40px;
-            border: 1px solid var(--accent);
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 9999;
-            transition: all 0.3s ease;
-            opacity: 0.5;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(10, 14, 39, 0.8);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 229, 160, 0.1);
-        }
-
-        .logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 800;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: -1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 3rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            position: relative;
-            text-transform: uppercase;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--accent);
-        }
-
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
-        /* Mobile Menu */
-        .mobile-menu-btn {
-            display: none;
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            padding: 0.6rem 1.2rem;
-            border-radius: 8px;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-        }
-
-        .mobile-menu-btn:hover {
-            background: var(--accent);
-            color: var(--dark);
-        }
-
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            right: -100%;
-            width: 80%;
-            max-width: 300px;
-            height: 100vh;
-            background: rgba(10, 14, 39, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 9999;
-            transition: right 0.4s ease;
-            padding: 2rem;
-            border-left: 1px solid rgba(0, 229, 160, 0.2);
-        }
-
-        .mobile-nav.active {
-            right: 0;
-        }
-
-        .mobile-nav-close {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            font-size: 1.5rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .mobile-nav-close:hover {
-            background: var(--accent);
-            color: var(--dark);
-            transform: rotate(90deg);
-        }
-
-        .mobile-nav-links {
-            list-style: none;
-            margin-top: 4rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        .mobile-nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 1.2rem;
-            font-weight: 500;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-            display: block;
-            padding: 0.8rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .mobile-nav-links a:hover {
-            color: var(--accent);
-            padding-left: 1rem;
-        }
-
-        .mobile-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 9998;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .mobile-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        /* Animated Bees */
-        .bee {
-            position: fixed;
-            font-size: 2rem;
-            z-index: 5;
-            pointer-events: none;
-            opacity: 0.6;
-            filter: drop-shadow(0 0 10px rgba(255, 215, 0, 0.3));
-            transition: transform 0.3s ease;
-        }
-
-        .bee::before {
-            content: '';
-            position: absolute;
-            width: 40px;
-            height: 2px;
-            background: rgba(255, 215, 0, 0.2);
-            top: 50%;
-            left: -50px;
-            transform: translateY(-50%);
-            animation: trail 2s ease-in-out infinite;
-        }
-
-        @keyframes trail {
-            0%, 100% {
-                opacity: 0.2;
-                width: 30px;
-            }
-            50% {
-                opacity: 0.5;
-                width: 50px;
-            }
-        }
-
-        @keyframes flyBee {
-            0% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-            10% {
-                transform: translate(5vw, -3vh) rotate(15deg) scale(1.02);
-            }
-            25% {
-                transform: translate(20vw, -10vh) rotate(45deg) scale(1.1);
-            }
-            35% {
-                transform: translate(15vw, -15vh) rotate(20deg) scale(0.95);
-            }
-            50% {
-                transform: translate(10vw, -20vh) rotate(-30deg) scale(0.9);
-            }
-            65% {
-                transform: translate(25vw, -12vh) rotate(50deg) scale(1.05);
-            }
-            75% {
-                transform: translate(30vw, -5vh) rotate(60deg) scale(1.05);
-            }
-            85% {
-                transform: translate(20vw, -8vh) rotate(30deg) scale(0.98);
-            }
-            100% {
-                transform: translate(0, 0) rotate(0deg) scale(1);
-            }
-        }
-
-        .bee:nth-child(1) {
-            top: 20%;
-            left: 10%;
-            animation: flyBee 18s ease-in-out infinite;
-            animation-delay: 0s;
-        }
-
-        .bee:nth-child(2) {
-            top: 60%;
-            left: 80%;
-            animation: flyBee 22s ease-in-out infinite;
-            animation-delay: 2s;
-        }
-
-        .bee:nth-child(3) {
-            top: 40%;
-            left: 70%;
-            animation: flyBee 16s ease-in-out infinite;
-            animation-delay: 4s;
-            font-size: 1.5rem;
-        }
-
-        .bee:nth-child(4) {
-            top: 80%;
-            left: 20%;
-            animation: flyBee 20s ease-in-out infinite;
-            animation-delay: 1s;
-        }
-
-        .bee:nth-child(5) {
-            top: 30%;
-            left: 50%;
-            animation: flyBee 19s ease-in-out infinite;
-            animation-delay: 3s;
-            font-size: 1.8rem;
-        }
-
-        .bee:nth-child(6) {
-            top: 70%;
-            left: 40%;
-            animation: flyBee 17s ease-in-out infinite;
-            animation-delay: 5s;
-            font-size: 1.6rem;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .hero-video {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            min-width: 100%;
-            min-height: 100%;
-            width: auto;
-            height: auto;
-            transform: translate(-50%, -50%);
-            z-index: 0;
-            object-fit: cover;
-            opacity: 0.5;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #00E5A0 100%);
-            background-size: 200% 200%;
-            animation: gradientMove 15s ease infinite;
-        }
-
-        @keyframes gradientMove {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .hero-video-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(10, 14, 39, 0.7) 0%, rgba(99, 102, 241, 0.5) 100%);
-            z-index: 1;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(0, 229, 160, 0.2) 0%, transparent 50%);
-            animation: backgroundShift 20s ease-in-out infinite;
-            z-index: 2;
-        }
-
-        @keyframes backgroundShift {
-            0%, 100% {
-                transform: translate(0, 0) scale(1);
-            }
-            50% {
-                transform: translate(-30px, -30px) scale(1.1);
-            }
-        }
-
-        .grid-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(0, 229, 160, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 229, 160, 0.03) 1px, transparent 1px);
-            background-size: 50px 50px;
-            opacity: 0.5;
-            z-index: 2;
-        }
-
-        .hero-content {
-            text-align: center;
-            z-index: 10;
-            position: relative;
-        }
-
-        .hero-label {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: var(--glass);
-            border: 1px solid rgba(0, 229, 160, 0.3);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .hero h1 {
-            font-family: 'Syne', sans-serif;
-            font-size: 6rem;
-            font-weight: 800;
-            letter-spacing: -3px;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: fadeIn 1s ease-out 0.2s both;
-            line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-size: 1.3rem;
-            font-weight: 300;
-            letter-spacing: 2px;
-            margin-bottom: 3rem;
-            opacity: 0.7;
-            animation: fadeIn 1s ease-out 0.4s both;
-        }
-
-        .cta-group {
-            display: flex;
-            gap: 1.5rem;
-            justify-content: center;
-            animation: fadeIn 1s ease-out 0.6s both;
-        }
-
-        .cta-button {
-            padding: 1.2rem 3rem;
-            font-size: 0.9rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            text-decoration: none;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            border-radius: 50px;
-        }
-
-        .cta-primary {
-            background: var(--gradient-2);
-            color: var(--dark);
-            border: none;
-        }
-
-        .cta-primary::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.3);
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
-        }
-
-        .cta-primary:hover::before {
-            width: 300px;
-            height: 300px;
-        }
-
-        .cta-secondary {
-            background: transparent;
-            color: var(--light);
-            border: 2px solid var(--accent);
-        }
-
-        .cta-secondary:hover {
-            background: var(--accent);
-            color: var(--dark);
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 10px;
-            animation: bounce 2s infinite;
-            z-index: 10;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            40% {
-                transform: translateX(-50%) translateY(-15px);
-            }
-            60% {
-                transform: translateX(-50%) translateY(-7px);
-            }
-        }
-
-        .scroll-text {
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            opacity: 0.5;
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 40px;
-            background: linear-gradient(to bottom, var(--accent), transparent);
-        }
-
-        /* Section Base */
-        .section {
-            padding: 8rem 5%;
-            position: relative;
-        }
-
-        .section-header {
-            max-width: 800px;
-            margin: 0 auto 5rem;
-            text-align: center;
-        }
-
-        .section-label {
-            display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: var(--glass);
-            border: 1px solid rgba(0, 229, 160, 0.2);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            color: var(--accent);
-        }
-
-        .section-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 700;
-            letter-spacing: -2px;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.5) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-description {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            opacity: 0.7;
-            font-weight: 300;
-        }
-
-        /* About Section */
-        .about {
-            background: linear-gradient(180deg, var(--dark) 0%, #0f1335 100%);
-        }
-
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .about-text-block {
-            position: relative;
-        }
-
-        .feature-list {
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .feature-item {
-            display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
-            padding: 1.5rem;
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-            transition: all 0.3s ease;
-        }
-
-        .feature-item:hover {
-            border-color: var(--accent);
-            transform: translateX(10px);
-        }
-
-        .feature-icon {
-            font-size: 2rem;
-            flex-shrink: 0;
-        }
-
-        .feature-text h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-
-        .feature-text p {
-            opacity: 0.7;
-            line-height: 1.6;
-            font-size: 0.95rem;
-        }
-
-        .about-visual {
-            position: relative;
-            height: 600px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.3), rgba(0, 229, 160, 0.3));
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .about-visual::before {
-            content: '🏨';
-            position: absolute;
-            font-size: 8rem;
-            opacity: 0.2;
-        }
-
-        .about-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Rooms Section */
-        .rooms {
-            background: var(--dark);
-        }
-
-        .rooms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .room-card {
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 30px;
-            overflow: hidden;
-            backdrop-filter: blur(20px);
-            transition: all 0.5s ease;
-            position: relative;
-        }
-
-        .room-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-2);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            z-index: 0;
-        }
-
-        .room-card:hover::before {
-            opacity: 0.1;
-        }
-
-        .room-card:hover {
-            transform: translateY(-15px);
-            border-color: var(--accent);
-            box-shadow: 0 20px 60px rgba(0, 229, 160, 0.2);
-        }
-
-        .room-image {
-            width: 100%;
-            height: 280px;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .room-card:nth-child(1) .room-image {
-            background: linear-gradient(135deg, #2E7D32 0%, #1B5E20 100%);
-        }
-
-        .room-card:nth-child(2) .room-image {
-            background: linear-gradient(135deg, #1976D2 0%, #0D47A1 100%);
-        }
-
-        .room-card:nth-child(3) .room-image {
-            background: linear-gradient(135deg, #5E35B1 0%, #311B92 100%);
-        }
-
-        .room-card:nth-child(4) .room-image {
-            background: linear-gradient(135deg, #C62828 0%, #B71C1C 100%);
-        }
-
-        .room-card:nth-child(5) .room-image,
-        .room-card:nth-child(6) .room-image {
-            background: linear-gradient(135deg, #00E5A0 0%, #00A896 100%);
-        }
-
-        .room-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease, opacity 0.3s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        /* Fallback quando l'immagine non carica */
-        .room-image::after {
-            content: '📷';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 4rem;
-            opacity: 0.3;
-            z-index: 1;
-        }
-
-        .room-card:hover .room-image img {
-            transform: scale(1.1);
-        }
-
-        .room-image::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0,0,0,0.3), transparent);
-            z-index: 1;
-        }
-
-        .room-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            padding: 0.5rem 1rem;
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            border-radius: 50px;
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            color: var(--accent);
-            border: 1px solid var(--accent);
-            z-index: 10;
-        }
-
-        .room-icon {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            font-size: 3rem;
-            opacity: 0.8;
-            z-index: 10;
-        }
-
-        .room-content {
-            padding: 2rem;
-            position: relative;
-            z-index: 1;
-        }
-
-        .room-title {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--light);
-        }
-
-        .room-description {
-            line-height: 1.7;
-            opacity: 0.7;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-        }
-
-        .room-features {
-            display: flex;
-            gap: 0.8rem;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-tag {
-            padding: 0.4rem 1rem;
-            background: rgba(0, 229, 160, 0.1);
-            border: 1px solid var(--accent);
-            border-radius: 50px;
-            font-size: 0.75rem;
-            letter-spacing: 1px;
-            color: var(--accent);
-        }
-
-        .room-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .room-price {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.8rem;
-            font-weight: 700;
-            background: var(--gradient-2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .book-button {
-            padding: 0.8rem 1.5rem;
-            background: transparent;
-            border: 2px solid var(--accent);
-            color: var(--accent);
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            transition: all 0.3s ease;
-        }
-
-        .book-button:hover {
-            background: var(--accent);
-            color: var(--dark);
-        }
-
-        /* Spa Section */
-        .spa {
-            background: linear-gradient(180deg, var(--dark) 0%, #13182e 100%);
-            position: relative;
-        }
-
-        .spa::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 30% 50%, rgba(99, 102, 241, 0.15) 0%, transparent 50%);
-        }
-
-        .spa-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .spa-card {
-            padding: 2.5rem;
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 30px;
-            backdrop-filter: blur(20px);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .spa-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--gradient-2);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .spa-card:hover::before {
-            opacity: 0.05;
-        }
-
-        .spa-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--accent);
-        }
-
-        .spa-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .spa-card h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--light);
-        }
-
-        .spa-card p {
-            line-height: 1.8;
-            opacity: 0.7;
-            font-size: 0.95rem;
-        }
-
-        /* Location Section */
-        .location {
-            background: var(--dark);
-        }
-
-        .location-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .location-card {
-            padding: 2rem;
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 30px;
-            backdrop-filter: blur(20px);
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        .location-card:hover {
-            border-color: var(--accent);
-            transform: scale(1.05);
-        }
-
-        .location-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .location-card h3 {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.3rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-        }
-
-        .location-card p {
-            opacity: 0.7;
-            font-size: 0.9rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: linear-gradient(180deg, var(--dark) 0%, var(--secondary) 100%);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 229, 160, 0.2), transparent);
-            animation: pulse 8s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.2);
-            }
-        }
-
-        .contact-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .contact-info {
-            display: flex;
-            justify-content: center;
-            gap: 4rem;
-            flex-wrap: wrap;
-            margin-top: 3rem;
-        }
-
-        .contact-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 1rem;
-            padding: 2rem;
-            background: var(--glass);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            backdrop-filter: blur(20px);
-            transition: all 0.3s ease;
-        }
-
-        .contact-item:hover {
-            border-color: var(--accent);
-            transform: translateY(-5px);
-        }
-
-        .contact-icon {
-            font-size: 2.5rem;
-        }
-
-        .contact-item a {
-            color: var(--light);
-            text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
-        }
-
-        .contact-item a:hover {
-            color: var(--accent);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            padding: 3rem 5%;
-            text-align: center;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        footer p {
-            opacity: 0.5;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        /* Responsive - Desktop Large */
-        @media (min-width: 1920px) {
-            .hero h1 {
-                font-size: 7rem;
-            }
-
-            .section-title {
-                font-size: 4rem;
-            }
-
-            .section {
-                padding: 10rem 8%;
-            }
-
-            nav {
-                padding: 2rem 8%;
-            }
-        }
-
-        /* Responsive - Tablet Landscape & Desktop */
-        @media (max-width: 1440px) {
-            .hero h1 {
-                font-size: 5rem;
-            }
-
-            .section {
-                padding: 6rem 4%;
-            }
-        }
-
-        /* Responsive - Tablet */
-        @media (max-width: 1024px) {
-            nav {
-                padding: 1.5rem 4%;
-            }
-
-            .logo {
-                font-size: 1.3rem;
-            }
-
-            .nav-links {
-                gap: 2rem;
-                font-size: 0.8rem;
-            }
-
-            .hero h1 {
-                font-size: 4rem;
-                letter-spacing: -2px;
-            }
-
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-
-            .section {
-                padding: 5rem 4%;
-            }
-
-            .section-title {
-                font-size: 3rem;
-            }
-
-            .section-header {
-                margin-bottom: 3rem;
-            }
-
-            .about-content {
-                grid-template-columns: 1fr;
-                gap: 3rem;
-            }
-
-            .about-visual {
-                height: 400px;
-                order: -1;
-            }
-
-            .feature-list {
-                margin-top: 2rem;
-            }
-
-            .rooms-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 1.5rem;
-            }
-
-            .spa-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .location-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .bee {
-                font-size: 1.6rem;
-            }
-        }
-
-        /* Responsive - Mobile Landscape & Small Tablet */
-        @media (max-width: 768px) {
-            body {
-                cursor: default;
-            }
-
-            .cursor, .cursor-follower {
-                display: none;
-            }
-
-            nav {
-                padding: 1.2rem 5%;
-            }
-
-            .logo {
-                font-size: 1.2rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu-btn {
-                display: block;
-            }
-
-            .bee {
-                font-size: 1.4rem;
-                opacity: 0.5;
-            }
-
-            .bee::before {
-                width: 25px;
-            }
-
-            .hero {
-                padding: 0 5%;
-            }
-
-            .hero h1 {
-                font-size: 3rem;
-                letter-spacing: -1px;
-            }
-
-            .hero-subtitle {
-                font-size: 1rem;
-                letter-spacing: 1.5px;
-                margin-bottom: 2rem;
-            }
-
-            .hero-label {
-                font-size: 0.7rem;
-                padding: 0.4rem 1.2rem;
-                margin-bottom: 1.5rem;
-            }
-
-            .cta-group {
-                flex-direction: column;
-                gap: 1rem;
-                width: 100%;
-            }
-
-            .cta-button {
-                width: 100%;
-                text-align: center;
-                padding: 1rem 2rem;
-            }
-
-            .scroll-indicator {
-                display: none;
-            }
-
-            .section {
-                padding: 4rem 5%;
-            }
-
-            .section-title {
-                font-size: 2.2rem;
-                letter-spacing: -1px;
-            }
-
-            .section-description {
-                font-size: 1rem;
-            }
-
-            .section-label {
-                font-size: 0.65rem;
-                padding: 0.4rem 1rem;
-            }
-
-            .about-visual {
-                height: 300px;
-            }
-
-            .feature-list {
-                gap: 1.5rem;
-            }
-
-            .feature-item {
-                padding: 1.2rem;
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .feature-item:hover {
-                transform: translateY(-5px);
-            }
-
-            .feature-icon {
-                font-size: 2.5rem;
-            }
-
-            .rooms-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .room-image {
-                height: 250px;
-            }
-
-            .room-content {
-                padding: 1.5rem;
-            }
-
-            .room-title {
-                font-size: 1.5rem;
-            }
-
-            .room-description {
-                font-size: 0.9rem;
-            }
-
-            .room-features {
-                gap: 0.6rem;
-            }
-
-            .feature-tag {
-                font-size: 0.7rem;
-                padding: 0.3rem 0.8rem;
-            }
-
-            .room-footer {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: flex-start;
-            }
-
-            .book-button {
-                width: 100%;
-                text-align: center;
-            }
-
-            .spa-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .spa-card {
-                padding: 2rem;
-                text-align: center;
-            }
-
-            .spa-icon {
-                font-size: 3rem;
-                margin-bottom: 1rem;
-            }
-
-            .spa-card h3 {
-                font-size: 1.3rem;
-            }
-
-            .location-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .location-card {
-                padding: 1.5rem;
-            }
-
-            .contact-info {
-                flex-direction: column;
-                gap: 1.5rem;
-            }
-
-            .contact-item {
-                width: 100%;
-                padding: 1.5rem;
-            }
-
-            footer {
-                padding: 2rem 5%;
-            }
-        }
-
-        /* Responsive - Small Mobile */
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero-subtitle {
-                font-size: 0.9rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .section-description {
-                font-size: 0.95rem;
-            }
-
-            .cta-button {
-                font-size: 0.85rem;
-                padding: 0.9rem 1.5rem;
-            }
-
-            .room-image {
-                height: 220px;
-            }
-
-            .room-badge {
-                font-size: 0.65rem;
-                padding: 0.4rem 0.8rem;
-                top: 15px;
-                right: 15px;
-            }
-
-            .room-icon {
-                font-size: 2.5rem;
-                bottom: 15px;
-                left: 15px;
-            }
-
-            .room-price {
-                font-size: 1.5rem;
-            }
-
-            .about-visual {
-                height: 250px;
-            }
-
-            .bee {
-                font-size: 1.2rem;
-            }
-        }
-
-        /* Responsive - Tablet Portrait specific */
-        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
-            .rooms-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .spa-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .location-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* Touch device optimizations */
-        @media (hover: none) and (pointer: coarse) {
-            .feature-item:hover,
-            .room-card:hover,
-            .spa-card:hover,
-            .location-card:hover,
-            .contact-item:hover {
-                transform: none;
-            }
-
-            .feature-item:active,
-            .room-card:active,
-            .spa-card:active {
-                transform: scale(0.98);
-            }
-
-            .cta-button:hover::before {
-                width: 0;
-                height: 0;
-            }
-
-            .cta-button:active {
-                transform: scale(0.95);
-            }
-        }
-
-        /* Print styles */
-        @media print {
-            .cursor,
-            .cursor-follower,
-            .bee,
-            nav,
-            .scroll-indicator,
-            .cta-button,
-            .book-button {
-                display: none;
-            }
-
-            body {
-                background: white;
-                color: black;
-            }
-
-            .section {
-                page-break-inside: avoid;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bubblebee | Eco-Luxury Retreat in Abruzzo</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #f4efe6;
+      --text: #1c1c1c;
+      --accent: #7a8f6a;
+      --gold: #cbb892;
+      --muted: #8b8578;
+      --max-width: 1100px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    header {
+      padding: 1.2rem 0 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .logo span {
+      color: var(--accent);
+    }
+
+    .header-tagline {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    /* HERO */
+    .hero {
+      padding: 1.5rem 0 2.5rem;
+    }
+
+    .hero-tag {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 0.7rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      line-height: 1.2;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-cta {
+      display: flex;
+      gap: 0.7rem;
+      margin-bottom: 1.6rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background-color: var(--accent);
+      color: #fff;
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 0.7rem 1.4rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .hero-image {
+      border-radius: 1.2rem;
+      overflow: hidden;
+      margin-top: 0.8rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+      background: #ddd;
+      min-height: 210px;
+      background-image: url("https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg");
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 2.2rem 0 0;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .section-text {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1.2rem;
+    }
+
+    .card-image {
+      border-radius: 1rem;
+      overflow: hidden;
+      margin-bottom: 1.2rem;
+      background: #ddd;
+      min-height: 190px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .pill {
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      padding: 0.35rem 0.8rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      background-color: rgba(255, 255, 255, 0.7);
+    }
+
+    /* ROOMS GRID */
+    .rooms-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.4rem;
+      margin-top: 0.8rem;
+    }
+
+    .room-card {
+      background: rgba(255, 255, 255, 0.7);
+      border-radius: 1rem;
+      padding: 1rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .room-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .room-text {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.6rem;
+    }
+
+    .room-meta {
+      font-size: 0.8rem;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    /* EXPERIENCES LIST */
+    .experience-list {
+      list-style: none;
+      margin-top: 0.4rem;
+    }
+
+    .experience-list li {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .experience-list li::before {
+      content: "• ";
+      color: var(--accent);
+    }
+
+    /* TERRITORY */
+    .territory-highlight {
+      font-size: 0.95rem;
+      color: var(--text);
+      font-weight: 500;
+      margin-bottom: 0.6rem;
+    }
+
+    .territory-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.7rem;
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* GALLERY */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .gallery-item {
+      border-radius: 0.8rem;
+      overflow: hidden;
+      background: #ddd;
+      min-height: 90px;
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* CONTACT */
+    .contact-box {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 1rem;
+      padding: 1.2rem;
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      margin-top: 0.8rem;
+    }
+
+    .contact-row {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+
+    .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-top: 0.8rem;
+    }
+
+    footer {
+      padding-top: 2.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* DESKTOP */
+    @media (min-width: 768px) {
+      .page {
+        padding: 0 2.5rem 3.5rem;
+      }
+
+      header {
+        padding-top: 1.8rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: 1.1fr 1.1fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      .hero-title {
+        font-size: 2.4rem;
+      }
+
+      .hero-image {
+        margin-top: 0;
+        min-height: 320px;
+      }
+
+      .rooms-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .gallery-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+
+      .territory-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
 </head>
 <body>
-    <!-- Animated Bees -->
-    <div class="bee">🐝</div>
-    <div class="bee">🐝</div>
-    <div class="bee">🐝</div>
-    <div class="bee">🐝</div>
-    <div class="bee">🐝</div>
-    <div class="bee">🐝</div>
+  <div class="page">
+    <!-- HEADER -->
+    <header>
+      <div>
+        <div class="logo"><span>Bubble</span>bee</div>
+        <div class="header-tagline">Eco-Resort & Bubble Rooms • Sant'Eusanio del Sangro</div>
+      </div>
+    </header>
 
-    <!-- Custom Cursor -->
-    <div class="cursor"></div>
-    <div class="cursor-follower"></div>
-
-    <!-- Navigation -->
-    <nav>
-        <div class="logo">BUBBLEBEE</div>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#about">Experience</a></li>
-            <li><a href="#rooms">Rooms</a></li>
-            <li><a href="#spa">Wellness</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
-        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">Menu</button>
-    </nav>
-
-    <!-- Mobile Navigation -->
-    <div class="mobile-overlay" onclick="toggleMobileMenu()"></div>
-    <div class="mobile-nav">
-        <button class="mobile-nav-close" onclick="toggleMobileMenu()">×</button>
-        <ul class="mobile-nav-links">
-            <li><a href="#home" onclick="toggleMobileMenu()">Home</a></li>
-            <li><a href="#about" onclick="toggleMobileMenu()">Experience</a></li>
-            <li><a href="#rooms" onclick="toggleMobileMenu()">Rooms</a></li>
-            <li><a href="#spa" onclick="toggleMobileMenu()">Wellness</a></li>
-            <li><a href="#contact" onclick="toggleMobileMenu()">Contact</a></li>
-        </ul>
-    </div>
-
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <!-- Hero Video Background -->
-        <video class="hero-video" autoplay muted loop playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080'%3E%3Crect fill='%230A0E27' width='1920' height='1080'/%3E%3Ctext x='50%25' y='50%25' font-size='120' fill='%2300E5A0' text-anchor='middle' dominant-baseline='middle' opacity='0.3'%3E🎬%3C/text%3E%3C/svg%3E">
-            <source src="https://player.vimeo.com/external/396879103.hd.mp4?s=3b6cbe3bf5f0b0d2c5e3b5b5e3b5b5e3&profile_id=175" type="video/mp4">
-            Il tuo browser non supporta il tag video.
-        </video>
-        <div class="hero-video-overlay"></div>
-        <div class="hero-bg"></div>
-        <div class="grid-overlay"></div>
-        <div class="hero-content">
-            <span class="hero-label">Future of Luxury</span>
-            <h1>TENUTA<br>BUBBLEBEE</h1>
-            <p class="hero-subtitle">Where Innovation Meets Nature</p>
-            <div class="cta-group">
-                <a href="#contact" class="cta-button cta-primary">Prenota Ora</a>
-                <a href="#about" class="cta-button cta-secondary">Scopri di Più</a>
-            </div>
+    <!-- HERO -->
+    <main>
+      <section class="hero" id="top">
+        <div>
+          <div class="hero-tag">Eco-Luxury Retreat in Abruzzo</div>
+          <h1 class="hero-title">Tra mare, montagna e natura autentica.</h1>
+          <p class="hero-subtitle">
+            Un rifugio sostenibile su una collina a Sant’Eusanio del Sangro: 4 camere di design,
+            2 Bubble Room immerse nella natura, piscina panoramica ed esperienze di benessere.
+          </p>
+          <div class="hero-cta">
+            <button class="btn-primary">Prenota ora</button>
+            <button class="btn-outline">Scopri le esperienze</button>
+          </div>
+          <div class="pill-row">
+            <span class="pill">Bioedilizia</span>
+            <span class="pill">Impatto ambientale 0</span>
+            <span class="pill">Piscina panoramica</span>
+            <span class="pill">Wellness & Natura</span>
+          </div>
         </div>
-        <div class="scroll-indicator">
-            <span class="scroll-text">Scroll</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
+        <div class="hero-image"></div>
+      </section>
 
-    <!-- About Section -->
-    <section id="about" class="section about">
-        <div class="section-header">
-            <span class="section-label">Innovation</span>
-            <h2 class="section-title">Un'Esperienza Rivoluzionaria</h2>
-            <p class="section-description">
-                Tecnologia e natura si fondono per creare un'esperienza di lusso senza precedenti
-            </p>
+      <!-- LA TENUTA -->
+      <section id="tenuta">
+        <div class="section-label">La Tenuta</div>
+        <h2 class="section-title">Un luogo dove la natura incontra il design</h2>
+        <p class="section-text">
+          Bubblebee nasce su una splendida collina affacciata sulla Maiella, circondata da campi di grano,
+          ulivi e silenzi autentici. La struttura è realizzata in <strong>bioedilizia</strong>, con materiali
+          naturali e un approccio a <strong>impatto ambientale zero</strong>. Ogni spazio è pensato per offrire
+          calma, privacy e un contatto profondo con la natura.
+        </p>
+        <div class="card-image"
+             style="background-image:url('https://images.pexels.com/photos/259588/pexels-photo-259588.jpeg');">
         </div>
-        <div class="about-content">
-            <div class="about-text-block">
-                <div class="feature-list">
-                    <div class="feature-item">
-                        <span class="feature-icon">🌐</span>
-                        <div class="feature-text">
-                            <h3>Design Futuristico</h3>
-                            <p>Architettura innovativa che ridefinisce il concetto di lusso immerso nella natura</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🫧</span>
-                        <div class="feature-text">
-                            <h3>Bubble Technology</h3>
-                            <p>Le nostre Bubble Room offrono un'esperienza immersiva a 360° con il paesaggio naturale</p>
-                        </div>
-                    </div>
-                    <div class="feature-item">
-                        <span class="feature-icon">🧬</span>
-                        <div class="feature-text">
-                            <h3>Wellness Avanzato</h3>
-                            <p>Trattamenti spa che integrano tecnologie all'avanguardia con pratiche olistiche tradizionali</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="about-visual">
-                <img src="https://images.unsplash.com/photo-1540541338287-41700207dee6?w=800&q=80" alt="Luxury Resort in Nature" class="about-image">
-            </div>
-        </div>
-    </section>
+      </section>
 
-    <!-- Rooms Section -->
-    <section id="rooms" class="section rooms">
-        <div class="section-header">
-            <span class="section-label">Accommodations</span>
-            <h2 class="section-title">Le Nostre Camere</h2>
-            <p class="section-description">
-                Ogni ambiente è progettato per offrire comfort supremo e connessione con la natura
-            </p>
-        </div>
+      <!-- CAMERE -->
+      <section id="camere">
+        <div class="section-label">Camere</div>
+        <h2 class="section-title">Camere di design in bioedilizia</h2>
+        <p class="section-text">
+          Le nostre quattro camere combinano eleganza, comfort e materiali naturali. Grandi vetrate portano
+          la luce dentro, mentre i colori caldi e le texture organiche creano un’atmosfera rilassante.
+          Ogni camera offre vista sulle colline e un bagno privato in pietra naturale.
+        </p>
+
         <div class="rooms-grid">
-            <div class="room-card">
-                <div class="room-image">
-                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=80" alt="Suite Bosco" onerror="this.style.opacity='0'">
-                    <span class="room-badge">Suite</span>
-                    <span class="room-icon">🌲</span>
-                </div>
-                <div class="room-content">
-                    <h3 class="room-title">Suite Bosco</h3>
-                    <p class="room-description">
-                        Design contemporaneo con vista panoramica sui boschi. Arredi naturali e tecnologie smart per un'esperienza personalizzata.
-                    </p>
-                    <div class="room-features">
-                        <span class="feature-tag">40 m²</span>
-                        <span class="feature-tag">Vista Bosco</span>
-                        <span class="feature-tag">Smart Room</span>
-                    </div>
-                    <div class="room-footer">
-                        <span class="room-price">€180/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="room-card">
-                <div class="room-image">
-                    <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800&q=80" alt="Suite Vallata" onerror="this.style.opacity='0'">
-                    <span class="room-badge">Suite</span>
-                    <span class="room-icon">🏔️</span>
-                </div>
-                <div class="room-content">
-                    <h3 class="room-title">Suite Vallata</h3>
-                    <p class="room-description">
-                        Affacciata sulla valle rigogliosa con tecnologie di illuminazione adattiva che seguono i ritmi naturali.
-                    </p>
-                    <div class="room-features">
-                        <span class="feature-tag">35 m²</span>
-                        <span class="feature-tag">Vista Valle</span>
-                        <span class="feature-tag">Terrazza</span>
-                    </div>
-                    <div class="room-footer">
-                        <span class="room-price">€170/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="room-card">
-                <div class="room-image">
-                    <img src="https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=800&q=80" alt="Suite Cielo" onerror="this.style.opacity='0'">
-                    <span class="room-badge">Suite</span>
-                    <span class="room-icon">⭐</span>
-                </div>
-                <div class="room-content">
-                    <h3 class="room-title">Suite Cielo</h3>
-                    <p class="room-description">
-                        Lucernario panoramico con vetro elettrocromico per ammirare il cielo stellato. Un'esperienza romantica e tecnologica.
-                    </p>
-                    <div class="room-features">
-                        <span class="feature-tag">38 m²</span>
-                        <span class="feature-tag">Lucernario</span>
-                        <span class="feature-tag">Jacuzzi</span>
-                    </div>
-                    <div class="room-footer">
-                        <span class="room-price">€190/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="room-card">
-                <div class="room-image">
-                    <img src="https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=800&q=80" alt="Suite Sorgente" onerror="this.style.opacity='0'">
-                    <span class="room-badge">Luxury</span>
-                    <span class="room-icon">💎</span>
-                </div>
-                <div class="room-content">
-                    <h3 class="room-title">Suite Sorgente</h3>
-                    <p class="room-description">
-                        La nostra suite più esclusiva con spa privata e sistema di cromoterapia avanzato per il massimo benessere.
-                    </p>
-                    <div class="room-features">
-                        <span class="feature-tag">45 m²</span>
-                        <span class="feature-tag">Spa Privata</span>
-                        <span class="feature-tag">Premium</span>
-                    </div>
-                    <div class="room-footer">
-                        <span class="room-price">€220/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="room-card">
-                <div class="room-image">
-                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800&q=80" alt="Bubble Room 1" onerror="this.style.opacity='0'">
-                    <span class="room-badge">Innovative</span>
-                    <span class="room-icon">🫧</span>
-                </div>
-                <div class="room-content">
-                    <h3 class="room-title">Bubble Room 1</h3>
-                    <p class="room-description">
-                        Cupola trasparente high-tech con vista a 360°. Controllo climatico avanzato e vetri autoregolanti per privacy e comfort.
-                    </p>
-                    <div class="room-features">
-                        <span class="feature-tag">25 m²</span>
-                        <span class="feature-tag">Vista 360°</span>
-                        <span class="feature-tag">Tech</span>
-                    </div>
-                    <div class="room-footer">
-                        <span class="room-price">€250/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="room-card">
-                <div class="room-image">
-                    <img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=800&q=80" alt="Bubble Room 2" onerror="this.style.opacity='0'">
-                    <span class="room-badge">Innovative</span>
-                    <span class="room-icon">🫧</span>
-                </div>
-                <div class="room-content">
-                    <h3 class="room-title">Bubble Room 2</h3>
-                    <p class="room-description">
-                        Esperienza immersiva nella natura con tecnologia invisibile. Sistema smart di illuminazione che segue i cicli naturali.
-                    </p>
-                    <div class="room-features">
-                        <span class="feature-tag">25 m²</span>
-                        <span class="feature-tag">Vista 360°</span>
-                        <span class="feature-tag">Tech</span>
-                    </div>
-                    <div class="room-footer">
-                        <span class="room-price">€250/notte</span>
-                        <a href="#contact" class="book-button">Prenota</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Spa Section -->
-    <section id="spa" class="section spa">
-        <div class="section-header">
-            <span class="section-label">Wellness</span>
-            <h2 class="section-title">Centro Benessere Innovativo</h2>
-            <p class="section-description">
-                Tecnologie wellness all'avanguardia per rigenerare corpo e mente
+          <article class="room-card">
+            <h3 class="room-title">Camera Collina</h3>
+            <p class="room-text">
+              Linee pulite, legno naturale e una grande finestra che incornicia i campi di grano.
             </p>
-        </div>
-        <div class="spa-grid">
-            <div class="spa-card">
-                <span class="spa-icon">💆</span>
-                <h3>Massaggi Tech</h3>
-                <p>Trattamenti che combinano tecniche tradizionali con tecnologie di ultima generazione per risultati ottimali</p>
-            </div>
-            <div class="spa-card">
-                <span class="spa-icon">🧘</span>
-                <h3>Yoga Immersivo</h3>
-                <p>Sessioni con realtà aumentata nel nostro giardino zen, per un'esperienza meditativa rivoluzionaria</p>
-            </div>
-            <div class="spa-card">
-                <span class="spa-icon">🌸</span>
-                <h3>Beauty Tech</h3>
-                <p>Trattamenti viso con macchinari avanzati e prodotti bio-tech per risultati visibili immediati</p>
-            </div>
-            <div class="spa-card">
-                <span class="spa-icon">🛁</span>
-                <h3>Hydro Therapy</h3>
-                <p>Percorso wellness con cromoterapia, aromaterapia e idroterapia per una purificazione totale</p>
-            </div>
-        </div>
-    </section>
+            <div class="room-meta">Vista colline • Letto king • Bagno in pietra</div>
+          </article>
 
-    <!-- Location Section -->
-    <section id="location" class="section location">
-        <div class="section-header">
-            <span class="section-label">Location</span>
-            <h2 class="section-title">Nel Cuore dell'Abruzzo</h2>
-            <p class="section-description">
-                Sant'Eusanio del Sangro: dove tradizione e innovazione si incontrano
+          <article class="room-card">
+            <h3 class="room-title">Camera Maiella</h3>
+            <p class="room-text">
+              Toni neutri, tessuti in lino e una vista aperta verso le montagne.
             </p>
-        </div>
-        <div class="location-grid">
-            <div class="location-card">
-                <div class="location-icon">🏔️</div>
-                <h3>Montagne</h3>
-                <p>Majella<br>30 minuti</p>
-            </div>
-            <div class="location-card">
-                <div class="location-icon">🏖️</div>
-                <h3>Mare</h3>
-                <p>Costa dei Trabocchi<br>25 minuti</p>
-            </div>
-            <div class="location-card">
-                <div class="location-icon">🏰</div>
-                <h3>Borghi</h3>
-                <p>Villaggi medievali<br>nelle vicinanze</p>
-            </div>
-        </div>
-    </section>
+            <div class="room-meta">Vista Maiella • Doccia walk-in • Atmosfera soft</div>
+          </article>
 
-    <!-- Contact Section -->
-    <section id="contact" class="section contact">
-        <div class="contact-content">
-            <span class="section-label">Get in Touch</span>
-            <h2 class="section-title">Prenota la Tua Esperienza</h2>
-            <p class="section-description">
-                Contattaci per creare il tuo soggiorno su misura
+          <article class="room-card">
+            <h3 class="room-title">Camera Ulivi</h3>
+            <p class="room-text">
+              Immersa nel verde, con dettagli in pietra e legno che richiamano il territorio.
             </p>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <span class="contact-icon">📍</span>
-                    <p>Sant'Eusanio del Sangro<br>Chieti, Abruzzo</p>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📧</span>
-                    <a href="/cdn-cgi/l/email-protection#a0c9cec6cfe0d4c5ced5d4c1c2d5c2c2ccc5c2c5c58ec9d4"><span class="__cf_email__" data-cfemail="b0d9ded6dff0c4d5dec5c4d1d2c5d2d2dcd5d2d5d59ed9c4">[email&#160;protected]</span></a>
-                </div>
-                <div class="contact-item">
-                    <span class="contact-icon">📱</span>
-                    <a href="tel:+39123456789">+39 123 456 789</a>
-                </div>
-            </div>
-        </div>
-    </section>
+            <div class="room-meta">Vista uliveto • Materiali naturali</div>
+          </article>
 
-    <!-- Footer -->
+          <article class="room-card">
+            <h3 class="room-title">Camera Tramonto</h3>
+            <p class="room-text">
+              Perfetta per chi ama i colori caldi della sera e la luce morbida del crepuscolo.
+            </p>
+            <div class="room-meta">Tramonti dorati • Atmosfera romantica</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- BUBBLE ROOMS -->
+      <section id="bubble">
+        <div class="section-label">Bubble Rooms</div>
+        <h2 class="section-title">Dormire sotto le stelle</h2>
+        <p class="section-text">
+          Le nostre due Bubble Room sono un’esperienza unica: trasparenti, immerse nella natura,
+          perfette per chi cerca magia, romanticismo e silenzio. Di notte il cielo diventa parte
+          della stanza, regalando un contatto totale con l’ambiente circostante.
+        </p>
+        <div class="card-image"
+             style="background-image:url('https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg');">
+        </div>
+      </section>
+
+      <!-- PISCINA -->
+      <section id="piscina">
+        <div class="section-label">Piscina</div>
+        <h2 class="section-title">Relax con vista sulla Maiella</h2>
+        <p class="section-text">
+          La piscina panoramica di Bubblebee è un’oasi di tranquillità. Acqua salata, lettini in legno
+          naturale e una vista che abbraccia colline, montagne e tramonti dorati.
+        </p>
+        <div class="card-image"
+             style="background-image:url('https://images.pexels.com/photos/261102/pexels-photo-261102.jpeg');">
+        </div>
+      </section>
+
+      <!-- ESPERIENZE -->
+      <section id="esperienze">
+        <div class="section-label">Esperienze</div>
+        <h2 class="section-title">Benessere e natura, da vivere</h2>
+        <p class="section-text">
+          A Bubblebee ogni esperienza è pensata per rigenerare corpo e mente.
+        </p>
+        <ul class="experience-list">
+          <li>Yoga al tramonto su una pedana in legno tra ulivi e grano.</li>
+          <li>Massaggi in natura e rituali di benessere personalizzati.</li>
+          <li>Bagni sonori e percorsi sensoriali all’aperto.</li>
+          <li>E-bike tra colline, vigneti e borghi medievali.</li>
+          <li>Degustazioni di vini e prodotti locali selezionati.</li>
+          <li>Trekking in Maiella e passeggiate lungo la Costa dei Trabocchi.</li>
+          <li>Esperienze agricole e raccolta di erbe spontanee.</li>
+        </ul>
+        <div class="card-image"
+             style="background-image:url('https://images.pexels.com/photos/2908175/pexels-photo-2908175.jpeg');">
+        </div>
+      </section>
+
+      <!-- TERRITORIO -->
+      <section id="territorio">
+        <div class="section-label">Territorio</div>
+        <h2 class="section-title">Tra mare, montagna e borghi medievali</h2>
+        <p class="territory-highlight">
+          In 30 minuti il mare. In 30 minuti la montagna. Nel mezzo, un mondo autentico.
+        </p>
+        <p class="section-text">
+          Sant’Eusanio del Sangro è un punto perfetto per scoprire l’Abruzzo. In pochi chilometri
+          puoi passare dalle colline dorate ai laghi, dai borghi medievali alle spiagge della
+          Costa dei Trabocchi.
+        </p>
+        <div class="territory-grid">
+          <div><strong>Costa dei Trabocchi</strong><br>Scogliere, trabocchi sul mare e acque cristalline.</div>
+          <div><strong>Parco Nazionale della Maiella</strong><br>Sentieri, eremi e panorami mozzafiato.</div>
+          <div><strong>Lago di Bomba</strong><br>Acqua, natura e silenzio a pochi minuti di auto.</div>
+          <div><strong>Borghi medievali</strong><br>Roccascalegna, Guardiagrele, Casoli e molti altri.</div>
+        </div>
+        <div class="card-image"
+             style="background-image:url('https://images.pexels.com/photos/460680/pexels-photo-460680.jpeg');">
+        </div>
+      </section>
+
+      <!-- GALLERIA -->
+      <section id="galleria">
+        <div class="section-label">Galleria</div>
+        <h2 class="section-title">Bubblebee in immagini</h2>
+        <p class="section-text">
+          Una selezione di scatti che raccontano la magia del luogo, tra natura, architettura e momenti di benessere.
+        </p>
+        <div class="gallery-grid">
+          <div class="gallery-item"
+               style="background-image:url('https://images.pexels.com/photos/325807/pexels-photo-325807.jpeg');"></div>
+          <div class="gallery-item"
+               style="background-image:url('https://images.pexels.com/photos/271639/pexels-photo-271639.jpeg');"></div>
+          <div class="gallery-item"
+               style="background-image:url('https://images.pexels.com/photos/261187/pexels-photo-261187.jpeg');"></div>
+          <div class="gallery-item"
+               style="background-image:url('https://images.pexels.com/photos/210186/pexels-photo-210186.jpeg');"></div>
+        </div>
+      </section>
+
+      <!-- CONTATTI -->
+      <section id="contatti">
+        <div class="section-label">Contatti</div>
+        <h2 class="section-title">Contattaci</h2>
+        <p class="section-text">
+          Siamo qui per aiutarti a vivere un’esperienza indimenticabile a Bubblebee.
+        </p>
+        <div class="contact-box">
+          <div class="contact-row"><strong>Email:</strong> info@bubblebee.it</div>
+          <div class="contact-row"><strong>Telefono / WhatsApp:</strong> +39 333 0000000</div>
+          <div class="contact-row"><strong>Indirizzo:</strong> Sant’Eusanio del Sangro (CH), Abruzzo, Italia</div>
+          <div class="contact-actions">
+            <button class="btn-primary">Scrivici su WhatsApp</button>
+            <button class="btn-outline">Invia una richiesta</button>
+          </div>
+        </div>
+      </section>
+    </main>
+
     <footer>
-        <p>&copy; 2026 Tenuta BubbleBee - Future Luxury Experience</p>
+      © Bubblebee – Eco-Luxury Retreat a Sant’Eusanio del Sangro • Abruzzo
     </footer>
-
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-        // Video optimization
-        const heroVideo = document.querySelector('.hero-video');
-        if (heroVideo) {
-            const videoObserver = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        heroVideo.play();
-                    } else {
-                        heroVideo.pause();
-                    }
-                });
-            }, { threshold: 0.25 });
-            
-            videoObserver.observe(heroVideo);
-
-            if (navigator.connection && navigator.connection.effectiveType) {
-                if (['slow-2g', '2g', '3g'].includes(navigator.connection.effectiveType)) {
-                    heroVideo.style.opacity = '0.3';
-                }
-            }
-        }
-
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const mobileNav = document.querySelector('.mobile-nav');
-            const mobileOverlay = document.querySelector('.mobile-overlay');
-            mobileNav.classList.toggle('active');
-            mobileOverlay.classList.toggle('active');
-            
-            if (mobileNav.classList.contains('active')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
-        }
-
-        // Custom cursor
-        const cursor = document.querySelector('.cursor');
-        const cursorFollower = document.querySelector('.cursor-follower');
-
-        if (cursor && cursorFollower) {
-            document.addEventListener('mousemove', (e) => {
-                cursor.style.left = e.clientX + 'px';
-                cursor.style.top = e.clientY + 'px';
-                
-                setTimeout(() => {
-                    cursorFollower.style.left = e.clientX + 'px';
-                    cursorFollower.style.top = e.clientY + 'px';
-                }, 100);
-            });
-        }
-
-        // Smooth scroll
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Parallax effect on scroll (disable on mobile for performance)
-        if (window.innerWidth > 768) {
-            let ticking = false;
-            window.addEventListener('scroll', () => {
-                if (!ticking) {
-                    window.requestAnimationFrame(() => {
-                        const scrolled = window.pageYOffset;
-                        const parallaxElements = document.querySelectorAll('.hero-bg, .grid-overlay');
-                        
-                        parallaxElements.forEach(el => {
-                            el.style.transform = `translateY(${scrolled * 0.5}px)`;
-                        });
-                        ticking = false;
-                    });
-                    ticking = true;
-                }
-            });
-        }
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // Observe cards for animation on load
-        document.addEventListener('DOMContentLoaded', () => {
-            const cards = document.querySelectorAll('.room-card, .spa-card, .location-card, .contact-item');
-            cards.forEach((card, index) => {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(30px)';
-                card.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
-                observer.observe(card);
-            });
-        });
-
-        // Close mobile menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                           const mobileNav = document.querySelector(".mobile-nav");
-                if (mobileNav && mobileNav.classList.contains("active")) {
-                    toggleMobileMenu();
-                }
-            }
-        });
-
-        // Image error handling - placeholder visibili
-        document.querySelectorAll("img").forEach(img => {
-            img.addEventListener("error", function() {
-                this.style.display = "none";
-                const parent = this.parentElement;
-                if (!parent.querySelector(".img-fallback")) {
-                    const fallback = document.createElement("div");
-                    fallback.className = "img-fallback";
-                    fallback.style.cssText = "position:absolute;top:0;left:0;width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:4rem;background:linear-gradient(135deg,#667eea,#00E5A0);z-index:0;";
-                    fallback.innerHTML = "🏨";
-                    parent.appendChild(fallback);
-                }
-            });
-        });
-    </script>
+  </div>
 </body>
 </html>
-
-<!-- Debug info -->
-<script>
-console.log('Tenuta BubbleBee - Sito caricato');
-console.log('Video URL:', document.querySelector('.hero-video')?.querySelector('source')?.src);
-console.log('Numero immagini:', document.querySelectorAll('img').length);
-</script>
